@@ -30,7 +30,7 @@ func LoginVerify(accessKey string) (dto.BiliAccountResp, error) {
 	return resp, nil
 }
 
-func SignIn(accessKey string) (dto.BiliDataResp, error) {
+func SignIn(accessKey string) (string, error) {
 	rawUrl := "http://api.live.bilibili.com/rc/v1/Sign/doSign"
 	data := map[string]string{
 		"access_key": accessKey,
@@ -39,17 +39,12 @@ func SignIn(accessKey string) (dto.BiliDataResp, error) {
 		"ts":         util.GetTimestamp(),
 	}
 	util.Signature(&data)
-	var resp dto.BiliDataResp
 	body, err := Get(rawUrl, util.Map2Params(data))
 	if err != nil {
 		util.Error("SignIn error: %v, data: %v", err, data)
-		return resp, err
+		return "", err
 	}
-	if err = json.Unmarshal(body, &resp); err != nil {
-		util.Error("Unmarshal BiliDataResp error: %v, raw data: %v", err, body)
-		return resp, err
-	}
-	return resp, nil
+	return string(body), nil
 }
 
 func GetUserInfo(accessKey string) (dto.BiliLiveUserInfo, error) {

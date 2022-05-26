@@ -7,6 +7,7 @@ import (
 	"sync"
 
 	"github.com/TwiN/go-color"
+	"github.com/tidwall/gjson"
 )
 
 type User struct {
@@ -63,13 +64,13 @@ func (user *User) signIn() error {
 	if err != nil {
 		return nil
 	}
-	if signInfo.Code == 0 {
-		// FIXME: No package collected, fix this later
-		signed := signInfo.Data.(map[string]string)["hadSignDays"]
-		all := signInfo.Data.(map[string]string)["allDays"]
-		user.info("签到成功,本月签到次数: %s/%s", signed, all)
+	resp := gjson.Parse(signInfo)
+	if resp.Get("code").Int() == 0 {
+		signed := resp.Get("data.hadSignDays").String()
+		all := resp.Get("data.allDays").String()
+		user.info("签到成功, 本月签到次数: %s/%s", signed, all)
 	} else {
-		user.info("%s", signInfo.Message)
+		user.info("%s", resp.Get("message").String())
 	}
 
 	userInfo, err := manager.GetUserInfo(user.accessKey)
@@ -78,7 +79,7 @@ func (user *User) signIn() error {
 	}
 	level := userInfo.Data.Exp.UserLevel
 	unext := userInfo.Data.Exp.Unext
-	user.info("当前用户UL等级: %d ,还差 %d 经验升级", level, unext)
+	user.info("当前用户UL等级: %d, 还差 %d 经验升级", level, unext)
 	return nil
 }
 
