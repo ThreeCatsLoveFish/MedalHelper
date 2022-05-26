@@ -52,6 +52,7 @@ func exec() {
 		}
 	}
 	wg.Wait()
+	util.Info(" 今日任务已完成")
 }
 
 func main() {
