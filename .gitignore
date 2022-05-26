@@ -1,3 +1,4 @@
 # Build file and log
 output/
 login_info.txt
+users.yaml
