@@ -4,7 +4,7 @@
 <div align="center">
 <h1> 新 B 站粉丝牌助手
 </h1>
-<p>当前版本：0.2.0</p>
+<p>当前版本：0.1.0</p>
  </div>
 
 **TODO**
@@ -22,16 +22,6 @@
 ---
 
 ### 使用说明
-
-##### 环境需求：Python 版本大于 3.8
-
-> 克隆本项目 安装依赖
-
-```shell
-git clone https://github.com/XiaoMiku01/fansMedalHelper.git
-cd fansMedalHelper
-pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
 
 ##### 环境需求：Go 1.16 (低版本也可兼容)
 
@@ -102,19 +92,3 @@ go run main.go
 [![XiifQP.md.png](https://s1.ax1x.com/2022/05/24/XiifQP.md.png)](https://imgtu.com/i/XiifQP)
 
 ---
-
-### 注意事项
-
----
-
-### 更新日志
-
--   2022-5-26
-
-    - 重构为Go语言
-
----
-
-### 赞助
-
-![](http://i0.hdslb.com/bfs/album/c267037c9513b8e44bc6ec95dbf772ff0439dce6.jpg)

@@ -1,6 +1,9 @@
 USERS:
-  - access_key: b4d5e17fa2f7641af62adc036e5d8e51 # 注意冒号后的空格 否则会读取失败
-    banned_uid: # 黑名单UID 同上,填了后将不会打卡，点赞，分享
+  - access_key: XXXXXX # 注意冒号后的空格 否则会读取失败 英文冒号
+    banned_uid: 789,100 # 黑名单UID 同上,填了后将不会打卡，点赞，分享 用英文逗号分隔 不填则不限制
+  - access_key:
+    banned_uid:
+  # 注意对齐
   # 多用户以上格式添加
   # 井号后为注释 井号前后必须有空格
 DANMU:
