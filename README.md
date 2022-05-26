@@ -13,6 +13,7 @@
 -   [x] 每日点赞 3 次直播间 （200\*3 亲密度）
 -   [x] 每日分享 5 次直播间 （100\*5 亲密度）
 -   [x] 每日弹幕打卡 （100 亲密度）
+-   [x] 自定义弹幕打卡 （100 亲密度）
 -   [x] 多账号支持
 -   [ ] 每日观看 30 分钟
 -   [ ] 微信推送通知
@@ -32,6 +33,10 @@ git clone https://github.com/ThreeCatsLoveFish/MedalHelper.git
 cd fansMedalHelper
 go get -u -v
 ```
+
+> Python 版本可前往
+
+[新B站粉丝牌助手](https://github.com/XiaoMiku01/fansMedalHelper)
 
 > 获取 B 站账号的 access_key
 
