@@ -4,7 +4,7 @@
 <div align="center">
 <h1> 新 B 站粉丝牌助手
 </h1>
-<p>当前版本：0.1.0</p>
+<p>当前版本：0.2.1</p>
  </div>
 
 **TODO**
@@ -23,19 +23,16 @@
 
 ### 使用说明
 
-##### 环境需求：Go 1.16 (低版本也可兼容)
+#### 环境需求：Go 1.16
+
+Python 版本可前往 [新B站粉丝牌助手](https://github.com/XiaoMiku01/fansMedalHelper)
 
 > 克隆本项目 安装依赖
 
 ```shell
 git clone https://github.com/ThreeCatsLoveFish/MedalHelper.git
 cd fansMedalHelper
-go get -u -v
 ```
-
-> Python 版本可前往
-
-[新B站粉丝牌助手](https://github.com/XiaoMiku01/fansMedalHelper)
 
 > 获取 B 站账号的 access_key
 
@@ -77,6 +74,7 @@ DANMU:
     "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄.",
     "←◡←.",
   ]
+# 可在此处自定义打卡弹幕
 CRON: 0 0 * * *
 # 这里是 cron 表达式, 第一个参数是分钟, 第二个参数是小时
 # 例如每天凌晨0点0分执行一次为 0 0 * * *
