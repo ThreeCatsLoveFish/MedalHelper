@@ -23,6 +23,9 @@ command:
 func initUsers() []service.User {
 	users := make([]service.User, 0, 1)
 	for _, userInfo := range util.GlobalConfig.UserList {
+		if len(userInfo.AccessKey) == 0 {
+			continue
+		}
 		banId := make([]int, 0)
 		if userInfo.BannedUid != "" {
 			banIdStr := strings.Split(userInfo.BannedUid, ",")
