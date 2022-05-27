@@ -6,7 +6,7 @@ import (
 	"net/url"
 )
 
-const PushPlusName = "push_plus"
+const PushPlusName string = "push_plus"
 
 // WeChat PushPlus push
 type PushPlusPush struct {

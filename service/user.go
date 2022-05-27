@@ -120,10 +120,13 @@ func (user *User) checkMedals() {
 		len(user.medalsLow)-len(user.remainMedals),
 	)
 	user.info(result)
-	push.NewPush(user.pushName).Submit(push.Data{
-		Title:   "每日打卡结果",
-		Content: fmt.Sprintf("用户%s，%s", user.Name, result),
-	})
+	if len(user.pushName) != 0 {
+		pushEnd := push.NewPush(user.pushName)
+		pushEnd.Submit(push.Data{
+			Title:   "每日打卡结果",
+			Content: fmt.Sprintf("用户%s，%s", user.Name, result),
+		})
+	}
 }
 
 func (user *User) Init() bool {

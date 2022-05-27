@@ -6,7 +6,7 @@ import (
 	"net/url"
 )
 
-const PushDeerName = "push_deer"
+const PushDeerName string = "push_deer"
 
 // PushDeer push
 type PushDeerPush struct {
