@@ -111,7 +111,7 @@ func (AShare) Do(user User, medal dto.MedalInfo) bool {
 		return true
 	}
 	times := 5
-	ticker := time.NewTicker(1 * time.Second)
+	ticker := time.NewTicker(time.Duration(util.GlobalConfig.CD.Share) * time.Second)
 	for i := 0; i < times; i++ {
 		if ok := manager.ShareRoom(user.accessKey, medal.RoomInfo.RoomID); !ok {
 			return false
