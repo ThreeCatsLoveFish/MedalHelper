@@ -106,7 +106,7 @@ func (user *User) setMedals() {
 		user.medals = append(user.medals, medal)
 		if medal.Medal.Level < 20 {
 			user.medalsLow = append(user.medalsLow, medal)
-			if medal.Medal.TodayFeed < 1200 {
+			if medal.Medal.TodayFeed < 1300 {
 				user.remainMedals = append(user.remainMedals, medal)
 			}
 		}
