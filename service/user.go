@@ -34,12 +34,9 @@ type User struct {
 
 func NewUser(accessKey string, uids []int) User {
 	return User{
-		accessKey:    accessKey,
-		bannedUIDs:   uids,
-		medals:       make([]dto.MedalInfo, 0, 10),
-		medalsLow:    make([]dto.MedalInfo, 0, 10),
-		remainMedals: make([]dto.MedalInfo, 0, 10),
-		retryTimes:   10,
+		accessKey:  accessKey,
+		bannedUIDs: uids,
+		retryTimes: 10,
 	}
 }
 
@@ -87,8 +84,12 @@ func (user *User) signIn() error {
 }
 
 func (user *User) setMedals() {
-	medals := manager.GetFansMedalAndRoomID(user.accessKey)
-	for _, medal := range medals {
+	// Clean medals storage
+	user.medals = make([]dto.MedalInfo, 0, 10)
+	user.medalsLow = make([]dto.MedalInfo, 0, 10)
+	user.remainMedals = make([]dto.MedalInfo, 0, 10)
+	// Fetch and update medals
+	for _, medal := range manager.GetFansMedalAndRoomID(user.accessKey) {
 		if util.IntContain(user.bannedUIDs, medal.Medal.TargetID) != -1 {
 			continue
 		}
