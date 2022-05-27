@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -43,10 +44,13 @@ func IntContain(array []int, val int) (index int) {
 	return
 }
 
-func RandomString(length int) string {
-	source := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
-	rand.Shuffle(length, func(i, j int) {
+func RandomString(length int) (sink string) {
+	source := strings.Split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", "")
+	rand.Shuffle(len(source), func(i, j int) {
 		source[i], source[j] = source[j], source[i]
 	})
-	return string(source[:length])
+	for i := 0; i < length; i++ {
+		sink += source[i]
+	}
+	return
 }
