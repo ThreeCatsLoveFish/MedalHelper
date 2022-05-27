@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/robfig/cron"
 )
@@ -71,12 +72,11 @@ func main() {
 		exec()
 	} else {
 		// Block the process
-		wg := sync.WaitGroup{}
-		wg.Add(1)
 		c := cron.New()
 		c.AddFunc(util.GlobalConfig.Cron, exec)
-		c.Start()
-		util.Info(" 使用内置定时器,开启定时任务,等待时间到达后执行")
-		wg.Wait()
+		entry := c.Entries()
+		timeNext := entry[0].Schedule.Next(time.Now()).Format(time.RFC3339)
+		util.Info(" 使用内置定时器,开启定时任务,下次执行时间为%s", timeNext)
+		c.Run()
 	}
 }
