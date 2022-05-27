@@ -23,20 +23,23 @@ type User struct {
 	// 被禁止的房间ID
 	bannedUIDs []int
 	// 用户所有勋章
-	medals []dto.MedalList
+	medals []dto.MedalInfo
 	// 用户等级小于20的勋章
-	medalsLow []dto.MedalList
+	medalsLow []dto.MedalInfo
+	// 今日亲密度没满的勋章
+	remainMedals []dto.MedalInfo
 	// 最大重试次数
 	retryTimes int32
 }
 
 func NewUser(accessKey string, uids []int) User {
 	return User{
-		accessKey:  accessKey,
-		bannedUIDs: uids,
-		medals:     make([]dto.MedalList, 0, 10),
-		medalsLow:  make([]dto.MedalList, 0, 10),
-		retryTimes: 10,
+		accessKey:    accessKey,
+		bannedUIDs:   uids,
+		medals:       make([]dto.MedalInfo, 0, 10),
+		medalsLow:    make([]dto.MedalInfo, 0, 10),
+		remainMedals: make([]dto.MedalInfo, 0, 10),
+		retryTimes:   10,
 	}
 }
 
@@ -95,8 +98,19 @@ func (user *User) setMedals() {
 		user.medals = append(user.medals, medal)
 		if medal.Medal.Level < 20 {
 			user.medalsLow = append(user.medalsLow, medal)
+			if medal.Medal.TodayFeed < 1200 {
+				user.remainMedals = append(user.remainMedals, medal)
+			}
 		}
 	}
+}
+
+func (user *User) checkMedals() {
+	user.setMedals()
+	user.info("20级以下牌子共 %d 个, 完成任务 %d 个",
+		len(user.medalsLow),
+		len(user.medalsLow)-len(user.remainMedals),
+	)
 }
 
 func (user *User) Init() bool {
@@ -110,14 +124,15 @@ func (user *User) Init() bool {
 	}
 }
 
-func (user User) Start(wg *sync.WaitGroup) {
+func (user *User) Start(wg *sync.WaitGroup) {
 	if user.isLogin {
-		task := NewTask(user, []IAction{
+		task := NewTask(*user, []IAction{
 			&Like{},
 			&Share{},
 			&Danmaku{},
 		})
 		task.Start()
+		user.checkMedals()
 	} else {
 		util.Error("用户未登录, accessKey: %s", user.accessKey)
 	}

@@ -69,8 +69,8 @@ func GetUserInfo(accessKey string) (dto.BiliLiveUserInfo, error) {
 	return resp, nil
 }
 
-func GetFansMedalAndRoomID(accessKey string) []dto.MedalList {
-	medals := make([]dto.MedalList, 0, 20)
+func GetFansMedalAndRoomID(accessKey string) []dto.MedalInfo {
+	medals := make([]dto.MedalInfo, 0, 20)
 	page := 1
 	for {
 		rawUrl := "http://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/panel"

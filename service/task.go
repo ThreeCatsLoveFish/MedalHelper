@@ -14,9 +14,9 @@ import (
 // SyncAction implement IConcurrency, support synchronous actions
 type SyncAction struct{}
 
-func (a *SyncAction) Exec(user User, job *sync.WaitGroup, child IExec) []dto.MedalList {
-	fail := make([]dto.MedalList, 0, len(user.medalsLow))
-	for _, medal := range user.medalsLow {
+func (a *SyncAction) Exec(user User, job *sync.WaitGroup, child IExec) []dto.MedalInfo {
+	fail := make([]dto.MedalInfo, 0, len(user.medalsLow))
+	for _, medal := range user.remainMedals {
 		backup := retry.NewFibonacci(1 * time.Second)
 		backup = retry.WithMaxRetries(uint64(user.retryTimes), backup)
 		ctx := context.Background()
@@ -38,15 +38,15 @@ func (a *SyncAction) Exec(user User, job *sync.WaitGroup, child IExec) []dto.Med
 // AsyncAction implement IConcurrency, support asynchronous actions
 type AsyncAction struct{}
 
-func (a *AsyncAction) Exec(user User, job *sync.WaitGroup, child IExec) []dto.MedalList {
+func (a *AsyncAction) Exec(user User, job *sync.WaitGroup, child IExec) []dto.MedalInfo {
 	mu := sync.Mutex{}
 	wg := sync.WaitGroup{}
-	fail := make([]dto.MedalList, 0, len(user.medalsLow))
-	for _, medal := range user.medalsLow {
+	fail := make([]dto.MedalInfo, 0, len(user.medalsLow))
+	for _, medal := range user.remainMedals {
 		wg.Add(1)
 		backup := retry.NewFibonacci(1 * time.Second)
 		backup = retry.WithMaxRetries(uint64(user.retryTimes), backup)
-		go func(medal dto.MedalList) {
+		go func(medal dto.MedalInfo) {
 			ctx := context.Background()
 			err := retry.Do(ctx, backup, func(ctx context.Context) error {
 				if ok := child.Do(user, medal); !ok {
@@ -73,7 +73,7 @@ type Like struct {
 	AsyncAction
 }
 
-func (Like) Do(user User, medal dto.MedalList) bool {
+func (Like) Do(user User, medal dto.MedalInfo) bool {
 	times := 3
 	for i := 0; i < times; i++ {
 		if ok := manager.LikeInteract(user.accessKey, medal.RoomInfo.RoomID); !ok {
@@ -83,7 +83,7 @@ func (Like) Do(user User, medal dto.MedalList) bool {
 	return true
 }
 
-func (Like) Finish(user User, medal []dto.MedalList) {
+func (Like) Finish(user User, medal []dto.MedalInfo) {
 	if len(medal) == 0 {
 		user.info("点赞完成")
 	} else {
@@ -96,19 +96,19 @@ type Share struct {
 	AsyncAction
 }
 
-func (Share) Do(user User, medal dto.MedalList) bool {
+func (Share) Do(user User, medal dto.MedalInfo) bool {
 	times := 5
 	ticker := time.NewTicker(1 * time.Second)
 	for i := 0; i < times; i++ {
 		if ok := manager.ShareRoom(user.accessKey, medal.RoomInfo.RoomID); !ok {
 			return false
 		}
-		<- ticker.C
+		<-ticker.C
 	}
 	return true
 }
 
-func (Share) Finish(user User, medal []dto.MedalList) {
+func (Share) Finish(user User, medal []dto.MedalInfo) {
 	if len(medal) == 0 {
 		user.info("分享完成")
 	} else {
@@ -121,7 +121,7 @@ type Danmaku struct {
 	SyncAction
 }
 
-func (Danmaku) Do(user User, medal dto.MedalList) bool {
+func (Danmaku) Do(user User, medal dto.MedalInfo) bool {
 	if ok := manager.SendDanmaku(user.accessKey, medal.RoomInfo.RoomID); !ok {
 		return false
 	}
@@ -129,7 +129,7 @@ func (Danmaku) Do(user User, medal dto.MedalList) bool {
 	return true
 }
 
-func (Danmaku) Finish(user User, medal []dto.MedalList) {
+func (Danmaku) Finish(user User, medal []dto.MedalInfo) {
 	if len(medal) == 0 {
 		user.info("弹幕打卡完成")
 	} else {

@@ -17,7 +17,7 @@ type BiliDataResp struct {
 	Data    interface{} `json:"data"`
 }
 
-type MedalList struct {
+type MedalInfo struct {
 	Medal struct {
 		UID              int    `json:"uid"`
 		TargetID         int    `json:"target_id"`
@@ -59,8 +59,8 @@ type MedalList struct {
 type BiliMedalResp struct {
 	BiliBaseResp
 	Data struct {
-		List        []MedalList `json:"list"`
-		SpecialList []MedalList `json:"special_list"`
+		List        []MedalInfo `json:"list"`
+		SpecialList []MedalInfo `json:"special_list"`
 		BottomBar   interface{} `json:"bottom_bar"`
 		PageInfo    struct {
 			Number          int  `json:"number"`
@@ -138,42 +138,42 @@ type BiliAccountResp struct {
 type BiliLiveUserInfo struct {
 	BiliBaseResp
 	Data struct {
-		UID int `json:"uid"`
+		UID    int `json:"uid"`
 		Silver int `json:"silver"`
-		Gold int `json:"gold"`
-		Medal struct {
-			MedalName string `json:"medal_name"`
-			Level int `json:"level"`
-			Color int `json:"color"`
-			MedalIconURL string `json:"medal_icon_url"`
-			TargetID int `json:"target_id"`
-			MedalColorStart int `json:"medal_color_start"`
-			MedalColorEnd int `json:"medal_color_end"`
-			MedalColorBorder int `json:"medal_color_border"`
-			IsLighted int `json:"is_lighted"`
-			GuardLevel int `json:"guard_level"`
-			GuardIcon string `json:"guard_icon"`
-			HonorIcon string `json:"honor_icon"`
+		Gold   int `json:"gold"`
+		Medal  struct {
+			MedalName        string `json:"medal_name"`
+			Level            int    `json:"level"`
+			Color            int    `json:"color"`
+			MedalIconURL     string `json:"medal_icon_url"`
+			TargetID         int    `json:"target_id"`
+			MedalColorStart  int    `json:"medal_color_start"`
+			MedalColorEnd    int    `json:"medal_color_end"`
+			MedalColorBorder int    `json:"medal_color_border"`
+			IsLighted        int    `json:"is_lighted"`
+			GuardLevel       int    `json:"guard_level"`
+			GuardIcon        string `json:"guard_icon"`
+			HonorIcon        string `json:"honor_icon"`
 		} `json:"medal"`
 		Vip struct {
-			Vip int `json:"vip"`
-			Svip int `json:"svip"`
-			VipTime string `json:"vip_time"`
+			Vip      int    `json:"vip"`
+			Svip     int    `json:"svip"`
+			VipTime  string `json:"vip_time"`
 			SvipTime string `json:"svip_time"`
 		} `json:"vip"`
 		WearTitle struct {
-			ID string `json:"id"`
+			ID  string `json:"id"`
 			Img string `json:"img"`
 		} `json:"wear_title"`
 		Exp struct {
-			Color int `json:"color"`
-			UserLevel int `json:"user_level"`
-			Cost int `json:"cost"`
-			Unext int `json:"unext"`
+			Color         int `json:"color"`
+			UserLevel     int `json:"user_level"`
+			Cost          int `json:"cost"`
+			Unext         int `json:"unext"`
 			UserLevelCost int `json:"user_level_cost"`
 		} `json:"exp"`
-		RoomID int `json:"room_id"`
+		RoomID        int  `json:"room_id"`
 		VipViewStatus bool `json:"vip_view_status"`
-		GuardCount int `json:"guard_count"`
+		GuardCount    int  `json:"guard_count"`
 	} `json:"data"`
 }
