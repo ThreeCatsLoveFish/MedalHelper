@@ -153,7 +153,7 @@ func (Danmaku) Do(user User, medal dto.MedalInfo) bool {
 }
 
 func (Danmaku) Finish(user User, medal []dto.MedalInfo) {
-	if util.GlobalConfig.CD.Share == 0 {
+	if util.GlobalConfig.CD.Danmu == 0 {
 		user.info("跳过弹幕打卡")
 		return
 	}
