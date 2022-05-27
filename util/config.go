@@ -20,9 +20,9 @@ type Config struct {
 
 type Endpoint struct {
 	Name  string `yaml:"name"`
-	Type  string `yaml:"token"`
-	URL   string `yaml:"type"`
-	Token string `yaml:"url"`
+	Type  string `yaml:"type"`
+	URL   string `yaml:"url"`
+	Token string `yaml:"token"`
 }
 
 type User struct {
