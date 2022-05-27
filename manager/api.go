@@ -205,7 +205,35 @@ func Heartbeat(accessKey string, uuids []string, roomId, upId int) bool {
 		"player_type":      "0",
 		"client_ts":        util.GetTimestamp(),
 	}
-	data["client_sign"] = util.ClientSign(data)
+	dataStr := fmt.Sprintf(`{"platform":"%s","uuid":"%s","buvid":"%s","seq_id":"%s","room_id":"%s","parent_id":"%s","area_id":"%s","timestamp":"%s","secret_key":"%s","watch_time":"%s","up_id":"%s","up_level":"%s","jump_from":"%s","gu_id":"%s","play_type":"%s","play_url":"%s","s_time":"%s","data_behavior_id":"%s","data_source_id":"%s","up_session":"%s","visit_id":"%s","watch_status":"%s","click_id":"%s","session_id":"%s","player_type":"%s","client_ts":"%s"}`, 
+		data["platform"],
+		data["uuid"],
+		data["buvid"],
+		data["seq_id"],
+		data["room_id"],
+		data["parent_id"],
+		data["area_id"],
+		data["timestamp"],
+		data["secret_key"],
+		data["watch_time"],
+		data["up_id"],
+		data["up_level"],
+		data["jump_from"],
+		data["gu_id"],
+		data["play_type"],
+		data["play_url"],
+		data["s_time"],
+		data["data_behavior_id"],
+		data["data_source_id"],
+		data["up_session"],
+		data["visit_id"],
+		data["watch_status"],
+		data["click_id"],
+		data["session_id"],
+		data["player_type"],
+		data["client_ts"],
+	)
+	data["client_sign"] = util.ClientSign(dataStr)
 	data["access_key"] = accessKey
 	data["actionKey"] = "appkey"
 	data["appkey"] = util.AppKey
