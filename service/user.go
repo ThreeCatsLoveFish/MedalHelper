@@ -149,6 +149,7 @@ func (user *User) Start(wg *sync.WaitGroup) {
 				&ALike{},
 				&AShare{},
 				&Danmaku{},
+				&WatchLive{},
 			})
 			task.Start()
 		case 0: // Sync
@@ -156,6 +157,7 @@ func (user *User) Start(wg *sync.WaitGroup) {
 				&Like{},
 				&Share{},
 				&Danmaku{},
+				&WatchLive{},
 			})
 			task.Start()
 		}
