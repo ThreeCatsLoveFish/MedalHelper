@@ -123,7 +123,7 @@ func (user *User) checkMedals() {
 	if len(user.pushName) != 0 {
 		pushEnd := push.NewPush(user.pushName)
 		pushEnd.Submit(push.Data{
-			Title:   "每日打卡结果",
+			Title:   "# 每日打卡结果",
 			Content: fmt.Sprintf("用户%s，%s", user.Name, result),
 		})
 	}
