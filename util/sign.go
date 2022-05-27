@@ -41,9 +41,9 @@ func ClientSign(data string) string {
 	h5, _ := blake2b.New512(nil)
 	
 	h1.Write([]byte(data))
-	h2.Write(h1.Sum(nil))
-	h3.Write(h2.Sum(nil))
-	h4.Write(h3.Sum(nil))
-	h5.Write(h4.Sum(nil))
+	h2.Write([]byte(hex.EncodeToString(h1.Sum(nil))))
+	h3.Write([]byte(hex.EncodeToString(h2.Sum(nil))))
+	h4.Write([]byte(hex.EncodeToString(h3.Sum(nil))))
+	h5.Write([]byte(hex.EncodeToString(h4.Sum(nil))))
 	return hex.EncodeToString(h5.Sum(nil))
 }
