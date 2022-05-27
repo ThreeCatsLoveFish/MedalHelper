@@ -98,12 +98,12 @@ type Share struct {
 
 func (Share) Do(user User, medal dto.MedalList) bool {
 	times := 5
+	ticker := time.NewTicker(1 * time.Second)
 	for i := 0; i < times; i++ {
 		if ok := manager.ShareRoom(user.accessKey, medal.RoomInfo.RoomID); !ok {
 			return false
 		}
-		// FIXME: how long is waiting time for share?
-		time.NewTimer(1 * time.Second)
+		<- ticker.C
 	}
 	return true
 }
