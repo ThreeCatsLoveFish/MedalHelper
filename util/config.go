@@ -12,15 +12,23 @@ func init() {
 }
 
 type Config struct {
-	UserList []User   `yaml:"USERS"`
-	Danmaku  []string `yaml:"DANMU"`
-	Cron     string   `yaml:"CRON"`
-	SendKey  string   `yaml:"SENDKEY"`
+	UserList  []User     `yaml:"USERS"`
+	Danmaku   []string   `yaml:"DANMU"`
+	Endpoints []Endpoint `yaml:"PUSH"`
+	Cron      string     `yaml:"CRON"`
+}
+
+type Endpoint struct {
+	Name  string `yaml:"name"`
+	Type  string `yaml:"token"`
+	URL   string `yaml:"type"`
+	Token string `yaml:"url"`
 }
 
 type User struct {
 	BannedUid string `yaml:"banned_uid"`
 	AccessKey string `yaml:"access_key"`
+	PushName  string `yaml:"push_name"`
 }
 
 // initConfig bind endpoints with config file

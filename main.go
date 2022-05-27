@@ -38,7 +38,7 @@ func initUsers() []service.User {
 				banId = append(banId, int(id))
 			}
 		}
-		users = append(users, service.NewUser(userInfo.AccessKey, banId))
+		users = append(users, service.NewUser(userInfo.AccessKey, userInfo.PushName, banId))
 	}
 	return users
 }

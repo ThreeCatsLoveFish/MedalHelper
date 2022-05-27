@@ -3,7 +3,9 @@ package service
 import (
 	"MedalHelper/dto"
 	"MedalHelper/manager"
+	"MedalHelper/service/push"
 	"MedalHelper/util"
+	"fmt"
 	"sync"
 
 	"github.com/TwiN/go-color"
@@ -22,6 +24,9 @@ type User struct {
 	accessKey string
 	// 被禁止的房间ID
 	bannedUIDs []int
+	// 推送服务
+	pushName string
+
 	// 用户所有勋章
 	medals []dto.MedalInfo
 	// 用户等级小于20的勋章
@@ -32,9 +37,10 @@ type User struct {
 	retryTimes int32
 }
 
-func NewUser(accessKey string, uids []int) User {
+func NewUser(accessKey, pushName string, uids []int) User {
 	return User{
 		accessKey:  accessKey,
+		pushName:   pushName,
 		bannedUIDs: uids,
 		retryTimes: 10,
 	}
@@ -108,10 +114,16 @@ func (user *User) setMedals() {
 
 func (user *User) checkMedals() {
 	user.setMedals()
-	user.info("20级以下牌子共 %d 个, 完成任务 %d 个",
+	result := fmt.Sprintf(
+		"20级以下牌子共 %d 个, 完成任务 %d 个",
 		len(user.medalsLow),
 		len(user.medalsLow)-len(user.remainMedals),
 	)
+	user.info(result)
+	push.NewPush(user.pushName).Submit(push.Data{
+		Title:   "每日打卡结果",
+		Content: fmt.Sprintf("用户%s，%s", user.Name, result),
+	})
 }
 
 func (user *User) Init() bool {

@@ -1,8 +1,10 @@
 USERS:
   - access_key: XXXXXX # 注意冒号后的空格 否则会读取失败 英文冒号
     banned_uid: 789,100 # 黑名单UID 同上,填了后将不会打卡，点赞，分享 用英文逗号分隔 不填则不限制
+    push_name: PUSH_DEER_SAMPLE # 推送服务，留空表示不需要推送
   - access_key:
     banned_uid:
+    push_name:
   # 注意对齐
   # 多用户以上格式添加
   # 井号后为注释 井号前后必须有空格
@@ -30,3 +32,14 @@ CRON: #3 2 1 * *
 # Second | Minute | Hour | Dom | Month
 # 例如每天凌晨01点02分03秒执行一次为 3 2 1 * *
 # 如果不填,则不使用内置定时器,填写正确后要保持该进程一直运行
+PUSH:
+  - name: "PUSH_DEER_SAMPLE" # 推送名称，对应上面对应用户的推送，请保证名称唯一
+    token: "<YOUR-TOKEN-HERE>" # 推送服务TOKEN
+    type: "push_deer" # 推送服务类型为 PushDeer
+    url: "http://<pushdeer-url-or-ip>/message/push" # 推送服务URL
+  - name: "PUSH_PLUS_SAMPLE"
+    token: "<YOUR-TOKEN-HERE>"
+    type: "push_plus"
+    url: "http://www.pushplus.plus/send"
+# 推送服务，每日打卡成功或报错日志推送
+# 目前仅支持PushDeer和PushPlus
