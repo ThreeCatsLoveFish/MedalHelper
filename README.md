@@ -2,14 +2,16 @@
   <img src="https://s1.ax1x.com/2022/05/24/XPx1tx.png" width="200" height="200" alt="">
 </p>
 <div align="center">
-<h1> 新 B 站粉丝牌助手
+<h1> 新 B 站粉丝牌助手 Golang实现
 </h1>
-<p>当前版本：0.2.1</p>
+<p>当前版本：0.3.0-go</p>
  </div>
 
 **TODO**
 
+-   [x] 选择需要的打卡类型
 -   [x] 每日直播区签到
+-   [ ] 每日观看 30 分钟
 -   [x] 每日点赞 3 次直播间 （200\*3 亲密度）
 -   [x] 每日分享 5 次直播间 （100\*5 亲密度）
 -   [x] 每日自定义弹幕打卡 （100 亲密度）
@@ -17,14 +19,15 @@
 -   [x] 本日亲密度徽章已满不重复打卡
 -   [x] 多种推送通知
 -   [x] 同步异步配置
--   [x] 选择需要的打卡类型
--   [ ] 每日观看 30 分钟
 
 <small>ps: 新版 B 站粉丝牌的亲密度每一个牌子都将单独计算  </small>
 
 ---
 
 ### 使用说明
+
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/ThreeCatsLoveFish/MedalHelper)
+[![wakatime](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper.svg)](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper)
 
 #### 环境需求：Go 1.16
 

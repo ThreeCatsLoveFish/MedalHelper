@@ -7,10 +7,6 @@ import (
 
 var GlobalConfig Config
 
-func init() {
-	initConfig()
-}
-
 type Config struct {
 	UserList  []User     `yaml:"USERS"`
 	Danmuku   []string   `yaml:"DANMU"`
@@ -41,8 +37,8 @@ type User struct {
 	PushName  string `yaml:"push_name"`
 }
 
-// initConfig bind endpoints with config file
-func initConfig() {
+// InitConfig bind endpoints with config file
+func InitConfig() {
 	conf := config.NewWithOptions("push", func(opt *config.Options) {
 		opt.DecoderConfig.TagName = "yaml"
 		opt.ParseEnv = true

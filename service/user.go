@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/TwiN/go-color"
+	"github.com/google/uuid"
 	"github.com/tidwall/gjson"
 )
 
@@ -19,6 +20,8 @@ type User struct {
 	Name string
 	// 是否登录
 	isLogin bool
+	// UUID
+	uuid []string
 
 	// 登录凭证
 	accessKey string
@@ -40,6 +43,7 @@ func NewUser(accessKey, pushName string, uids []int) User {
 		accessKey:  accessKey,
 		bannedUIDs: uids,
 		pushName:   pushName,
+		uuid:       []string{uuid.NewString(), uuid.NewString()},
 	}
 }
 

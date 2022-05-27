@@ -2,6 +2,7 @@ package main
 
 import (
 	"MedalHelper/service"
+	"MedalHelper/service/push"
 	"MedalHelper/util"
 	"fmt"
 	"os"
@@ -57,6 +58,7 @@ func exec() {
 }
 
 func main() {
+	// Tool for login
 	args := os.Args
 	if len(args) > 1 {
 		if args[1] == "login" {
@@ -67,6 +69,10 @@ func main() {
 		return
 	}
 
+	// Init config file
+	util.InitConfig()
+	push.InitPush()
+	// Start main block
 	if len(util.GlobalConfig.Cron) == 0 {
 		util.Info(" 外部调用,开启任务")
 		exec()

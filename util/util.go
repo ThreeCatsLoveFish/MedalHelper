@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"math/rand"
 	"net/url"
 	"time"
 )
@@ -40,4 +41,12 @@ func IntContain(array []int, val int) (index int) {
 		}
 	}
 	return
+}
+
+func RandomString(length int) string {
+	source := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+	rand.Shuffle(length, func(i, j int) {
+		source[i], source[j] = source[j], source[i]
+	})
+	return string(source[:length])
 }

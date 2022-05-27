@@ -4,12 +4,8 @@ import "MedalHelper/util"
 
 var pushMap map[string]Push
 
-func init() {
-	initPush()
-}
-
-// initPush bind endpoints with config file
-func initPush() {
+// InitPush bind endpoints with config file
+func InitPush() {
 	for _, endpoint := range util.GlobalConfig.Endpoints {
 		SetEndpoint(endpoint)
 	}
