@@ -105,7 +105,6 @@ func (Share) Do(user User, medal dto.MedalList) bool {
 		}
 		<- ticker.C
 	}
-	user.info("%s 房间分享完成", medal.AnchorInfo.NickName)
 	return true
 }
 
