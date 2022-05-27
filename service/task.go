@@ -93,7 +93,7 @@ func (Like) Finish(user User, medal []dto.MedalList) {
 
 // Share implement IExec, include 5 * share
 type Share struct {
-	SyncAction
+	AsyncAction
 }
 
 func (Share) Do(user User, medal dto.MedalList) bool {
@@ -105,6 +105,7 @@ func (Share) Do(user User, medal dto.MedalList) bool {
 		}
 		<- ticker.C
 	}
+	user.info("%s 房间分享完成", medal.AnchorInfo.NickName)
 	return true
 }
 
