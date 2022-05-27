@@ -16,6 +16,8 @@
 -   [x] 多账号支持
 -   [x] 本日亲密度徽章已满不重复打卡
 -   [x] 多种推送通知
+-   [x] 同步异步配置
+-   [x] 选择需要的打卡类型
 -   [ ] 每日观看 30 分钟
 
 <small>ps: 新版 B 站粉丝牌的亲密度每一个牌子都将单独计算  </small>
@@ -52,8 +54,10 @@ vim users.yaml
 USERS:
   - access_key: XXXXXX # 注意冒号后的空格 否则会读取失败 英文冒号
     banned_uid: 789,100 # 黑名单UID 同上,填了后将不会打卡，点赞，分享 用英文逗号分隔 不填则不限制
+    push_name: PUSH_DEER_SAMPLE # 推送服务，留空表示不需要推送
   - access_key:
     banned_uid:
+    push_name:
   # 注意对齐
   # 多用户以上格式添加
   # 井号后为注释 井号前后必须有空格
@@ -75,12 +79,30 @@ DANMU:
     "⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄.",
     "←◡←.",
   ]
-# 可在此处自定义打卡弹幕
-CRON: 0 0 * * *
+  # 可在此处自定义打卡弹幕
+CRON: #3 2 1 * *
 # 这里是 cron 表达式, 从左到右参数为秒，分钟，小时，日期，月份
 # Second | Minute | Hour | Dom | Month
 # 例如每天凌晨01点02分03秒执行一次为 3 2 1 * *
 # 如果不填,则不使用内置定时器,填写正确后要保持该进程一直运行
+CD:
+  async: 1 # 异步执行，默认为1表示异步，0表示同步
+  retry: 1 # 任务失败重试时间，单位秒，设置为0不重试
+  max_try: 10 # 任务失败最多重试次数，单位次，设置为0不重试
+  like: 2 # 点赞间隔时间，单位秒，设置为0不点赞
+  share: 5 # 分享间隔时间，单位秒，设置为0不分享
+  danmu: 6 # 弹幕间隔时间，单位秒，设置为0不发送弹幕，只支持同步
+PUSH:
+  - name: "PUSH_DEER_SAMPLE" # 推送名称，对应上面对应用户的推送，请保证名称唯一
+    token: "<YOUR-TOKEN-HERE>" # 推送服务TOKEN
+    type: "push_deer" # 推送服务类型为 PushDeer
+    url: "http://<pushdeer-url-or-ip>/message/push" # 推送服务URL
+  - name: "PUSH_PLUS_SAMPLE"
+    token: "<YOUR-TOKEN-HERE>"
+    type: "push_plus"
+    url: "http://www.pushplus.plus/send"
+# 推送服务，每日打卡成功或报错日志推送
+# 目前仅支持PushDeer和PushPlus
 ```
 
 请务必严格填写，否则程序将读取失败，可以在这里 [YAML、YML 在线编辑器(格式化校验)-BeJSON.com](https://www.bejson.com/validators/yaml_editor/) 验证你填的 yaml 是否正确

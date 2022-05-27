@@ -33,16 +33,13 @@ type User struct {
 	medalsLow []dto.MedalInfo
 	// 今日亲密度没满的勋章
 	remainMedals []dto.MedalInfo
-	// 最大重试次数
-	retryTimes int32
 }
 
 func NewUser(accessKey, pushName string, uids []int) User {
 	return User{
 		accessKey:  accessKey,
-		pushName:   pushName,
 		bannedUIDs: uids,
-		retryTimes: 10,
+		pushName:   pushName,
 	}
 }
 
@@ -142,12 +139,22 @@ func (user *User) Init() bool {
 
 func (user *User) Start(wg *sync.WaitGroup) {
 	if user.isLogin {
-		task := NewTask(*user, []IAction{
-			&Like{},
-			&Share{},
-			&Danmaku{},
-		})
-		task.Start()
+		switch util.GlobalConfig.CD.Async {
+		case 1: // Async
+			task := NewTask(*user, []IAction{
+				&ALike{},
+				&AShare{},
+				&Danmaku{},
+			})
+			task.Start()
+		case 0: // Sync
+			task := NewTask(*user, []IAction{
+				&Like{},
+				&Share{},
+				&Danmaku{},
+			})
+			task.Start()
+		}
 		user.checkMedals()
 	} else {
 		util.Error("用户未登录, accessKey: %s", user.accessKey)

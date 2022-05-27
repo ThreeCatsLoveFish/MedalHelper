@@ -156,7 +156,7 @@ func SendDanmaku(accessKey string, roomId int) bool {
 	}
 	data := map[string]string{
 		"cid":      fmt.Sprint(roomId),
-		"msg":      util.GlobalConfig.Danmaku[rand.Intn(len(util.GlobalConfig.Danmaku))],
+		"msg":      util.GlobalConfig.Danmuku[rand.Intn(len(util.GlobalConfig.Danmuku))],
 		"rnd":      util.GetTimestamp(),
 		"color":    "16777215",
 		"fontsize": "25",
