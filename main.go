@@ -14,6 +14,12 @@ import (
 	"github.com/robfig/cron"
 )
 
+func init() {
+	// Init config file
+	util.InitConfig()
+	push.InitPush()
+}
+
 func usage() {
 	fmt.Print(`Usage: main.go [COMMAND]
 
@@ -72,9 +78,6 @@ func main() {
 		return
 	}
 
-	// Init config file
-	util.InitConfig()
-	push.InitPush()
 	// Start main block
 	if len(util.GlobalConfig.Cron) == 0 {
 		util.Info(" 外部调用,开启任务")
