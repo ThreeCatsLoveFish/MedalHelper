@@ -2,36 +2,34 @@
   <img src="https://s1.ax1x.com/2022/05/24/XPx1tx.png" width="200" height="200" alt="">
 </p>
 <div align="center">
-<h1> 新 B 站粉丝牌助手 Golang实现
+<h1> 最新 B 站粉丝牌助手
 </h1>
-<p>当前版本：0.3.0-go</p>
+<p>当前版本：0.3.2</p>
  </div>
 
-**TODO**
+### 功能说明
 
--   [x] 选择需要的打卡类型
--   [x] 每日直播区签到
--   [x] 每日观看 30 分钟
--   [x] 每日点赞 3 次直播间 （200\*3 亲密度）
--   [x] 每日分享 5 次直播间 （100\*5 亲密度）
--   [x] 每日自定义弹幕打卡 （100 亲密度）
--   [x] 多账号支持
--   [x] 本日亲密度徽章已满不重复打卡
--   [x] 多种推送通知
--   [x] 同步异步配置
+- 每日直播区签到
+- 每日观看 30 分钟
+- 每日点赞 3 次直播间 （200\*3 亲密度）
+- 每日分享 5 次直播间 （100\*5 亲密度）
+- 每日自定义弹幕打卡 （100 亲密度）
+- 多账号支持
+- 本日亲密度已满徽章不重复打卡
+- 可选需要的打卡类型
+- 多种推送通知
+- 同步异步配置
 
 <small>ps: 新版 B 站粉丝牌的亲密度每一个牌子都将单独计算  </small>
-
----
 
 ### 使用说明
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/ThreeCatsLoveFish/MedalHelper)
 [![wakatime](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper.svg)](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper)
 
-#### 环境需求：Go 1.16
+> 零基础用户看这里 [阿里云函数版](https://github.com/XiaoMiku01/fansMedalHelperVersion/blob/master/doc/README.md)
 
-Python 版本可前往 [新B站粉丝牌助手](https://github.com/XiaoMiku01/fansMedalHelper)
+#### 环境需求：Go 1.16
 
 > 克隆本项目 安装依赖
 
@@ -96,14 +94,14 @@ CD:
   share: 5 # 分享间隔时间，单位秒，设置为0不分享
   danmu: 6 # 弹幕间隔时间，单位秒，设置为0不发送弹幕，只支持同步
 PUSH:
-  - name: "PUSH_DEER_SAMPLE" # 推送名称，对应上面对应用户的推送，请保证名称唯一
-    token: "<YOUR-TOKEN-HERE>" # 推送服务TOKEN
+  - name: "PUSH_PLUS_SAMPLE" # 推送名称，对应上面对应用户的推送，请保证名称唯一
+    token: "<YOUR-TOKEN-HERE>"  # 推送服务TOKEN
+    type: "push_plus" # 推送服务类型为 PushPlus
+    url: "http://www.pushplus.plus/send" # 推送服务URL
+  - name: "PUSH_DEER_SAMPLE" 
+    token: "<YOUR-TOKEN-HERE>" 
     type: "push_deer" # 推送服务类型为 PushDeer
-    url: "http://<pushdeer-url-or-ip>/message/push" # 推送服务URL
-  - name: "PUSH_PLUS_SAMPLE"
-    token: "<YOUR-TOKEN-HERE>"
-    type: "push_plus"
-    url: "http://www.pushplus.plus/send"
+    url: "http://<pushdeer-url-or-ip>/message/push" 
 # 推送服务，每日打卡成功或报错日志推送
 # 目前仅支持PushDeer和PushPlus
 ```
@@ -120,4 +118,6 @@ go run main.go
 
 [![XiifQP.md.png](https://s1.ax1x.com/2022/05/24/XiifQP.md.png)](https://imgtu.com/i/XiifQP)
 
----
+### 友情链接
+
+Python 版本可前往 [新B站粉丝牌助手](https://github.com/XiaoMiku01/fansMedalHelper)

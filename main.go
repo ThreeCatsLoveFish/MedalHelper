@@ -15,10 +15,11 @@ import (
 )
 
 func usage() {
-	fmt.Print(`Usage: main.go [command]
+	fmt.Print(`Usage: main.go [COMMAND]
 
-command:
-    login   login bili account and get access key
+COMMAND:
+    login   Login bili account and get access key
+    start   Execute all tasks immediately
 `)
 }
 
@@ -63,6 +64,8 @@ func main() {
 	if len(args) > 1 {
 		if args[1] == "login" {
 			util.LoginBili()
+		} else if args[1] == "start" {
+			exec()
 		} else {
 			usage()
 		}
@@ -77,7 +80,6 @@ func main() {
 		util.Info(" 外部调用,开启任务")
 		exec()
 	} else {
-		// Block the process
 		c := cron.New()
 		c.AddFunc(util.GlobalConfig.Cron, exec)
 		entry := c.Entries()

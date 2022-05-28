@@ -179,11 +179,10 @@ func (WatchLive) Do(user User, medal dto.MedalInfo) bool {
 		); !ok {
 			return false
 		}
-		user.info("%s 房间发送第%d分钟心跳包", medal.AnchorInfo.NickName, i)
+		user.info("%s 房间心跳包已发送(%d/%d)", medal.AnchorInfo.NickName, i + 1, times)
 		timer := time.NewTimer(1 * time.Minute)
 		<-timer.C
 	}
-	user.info("%s 房间每日30分钟完成", medal.AnchorInfo.NickName)
 	return true
 }
 
