@@ -133,10 +133,10 @@ func (user *User) checkMedals() {
 	result := fmt.Sprintf(
 		"20级以下牌子共 %d 个\n【1300及以上】 %v等 %d个\n【1200至1300】 %v等 %d个\n【1100至1200】 %v等 %d个\n【1100以下】 %v等 %d个\n",
 		len(user.medalsLow),
-		medalList1[:5], len(medalList1),
-		medalList2[:5], len(medalList2),
-		medalList3[:5], len(medalList3),
-		medalList4[:5], len(medalList4),
+		medalList1, len(medalList1),
+		medalList2, len(medalList2),
+		medalList3, len(medalList3),
+		medalList4, len(medalList4),
 	)
 	user.info(result)
 	if len(user.pushName) != 0 {
