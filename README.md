@@ -38,7 +38,7 @@
 
 ```shell
 git clone https://github.com/ThreeCatsLoveFish/MedalHelper.git
-cd fansMedalHelper
+cd MedalHelper
 ```
 
 > 获取 B 站账号的 access_key
