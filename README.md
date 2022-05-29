@@ -1,11 +1,16 @@
-<p align="center">
-  <img src="https://s1.ax1x.com/2022/05/24/XPx1tx.png" width="200" height="200" alt="">
-</p>
+```
+         __  __          _       _   _   _      _                 
+        |  \/  | ___  __| | __ _| | | | | | ___| |_ __   ___ _ __ 
+        | |\/| |/ _ \/ _` |/ _` | | | |_| |/ _ \ | '_ \ / _ \ '__|
+        | |  | |  __/ (_| | (_| | | |  _  |  __/ | |_) |  __/ |   
+        |_|  |_|\___|\__,_|\__,_|_| |_| |_|\___|_| .__/ \___|_|   
+                                                 |_|              
+```
+
 <div align="center">
-<h1> 最新 B 站粉丝牌助手
-</h1>
-<p>当前版本：0.3.2</p>
- </div>
+  <h1> 最新 B 站粉丝牌助手</h1>
+  <p>当前版本：1.0</p>
+</div>
 
 ### 功能说明
 
@@ -26,8 +31,6 @@
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/ThreeCatsLoveFish/MedalHelper)
 [![wakatime](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper.svg)](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper)
-
-> 零基础用户看这里 [阿里云函数版](https://github.com/XiaoMiku01/fansMedalHelperVersion/blob/master/doc/README.md)
 
 #### 环境需求：Go 1.16
 
@@ -113,10 +116,6 @@ PUSH:
 ```shell
 go run main.go
 ```
-
-> 效果图
-
-[![XiifQP.md.png](https://s1.ax1x.com/2022/05/24/XiifQP.md.png)](https://imgtu.com/i/XiifQP)
 
 ### 友情链接
 
