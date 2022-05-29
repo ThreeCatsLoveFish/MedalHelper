@@ -26,6 +26,10 @@
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/ThreeCatsLoveFish/MedalHelper)
 [![wakatime](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper.svg)](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper)
 
+#### Windows 用户
+
+> Windows10以上用户请直接前往[免配置高速通道](https://github.com/ThreeCatsLoveFish/MedalHelper/releases/tag/v1.0)
+
 #### 环境需求：Go 1.16
 
 > 克隆本项目 安装依赖
