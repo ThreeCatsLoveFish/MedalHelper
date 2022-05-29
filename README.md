@@ -30,6 +30,40 @@
 
 > Windows10以上用户请直接前往[免配置高速通道](https://github.com/ThreeCatsLoveFish/MedalHelper/releases/tag/v1.0)
 
+#### Docker 用户
+
+> 克隆本项目，构建镜像
+
+```shell
+git clone https://github.com/ThreeCatsLoveFish/MedalHelper.git
+cd MedalHelper
+docker build -t medalhelper .
+```
+
+> 获取 B 站账号的 access_key
+
+```shell
+docker run --rm -ti medalhelper login
+```
+
+按提示回车并扫码（或访问 URL），得到 `access_key`。
+
+> 填写配置文件 users.yaml
+
+参考下文编辑 `users.yaml`。
+
+> 运行
+
+```shell
+docker run -d -v $(pwd)/users.yaml:/config/users.yaml --restart unless-stopped --name medalhelper medalhelper
+```
+
+> 查看日志
+
+```shell
+docker logs medalhelper
+```
+
 #### 环境需求：Go 1.16
 
 > 克隆本项目 安装依赖
