@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// Like implement IExec, include 3 * like
+// Like implement IExec, sync like 3 times
 type Like struct {
 	SyncAction
 }
@@ -39,7 +39,7 @@ func (Like) Finish(user User, medal []dto.MedalInfo) {
 	}
 }
 
-// Like implement IExec, include 3 * like
+// Like implement IExec, async like 3 times
 type ALike struct {
 	AsyncAction
 }
@@ -69,7 +69,7 @@ func (ALike) Finish(user User, medal []dto.MedalInfo) {
 	}
 }
 
-// Share implement IExec, include 5 * share
+// Share implement IExec, sync share 5 times
 type Share struct {
 	SyncAction
 }
@@ -101,7 +101,7 @@ func (Share) Finish(user User, medal []dto.MedalInfo) {
 	}
 }
 
-// Share implement IExec, include 5 * share
+// Share implement IExec, async share 5 times
 type AShare struct {
 	AsyncAction
 }
@@ -133,7 +133,7 @@ func (AShare) Finish(user User, medal []dto.MedalInfo) {
 	}
 }
 
-// Danmaku implement IExec, include sending daily danmu
+// Danmaku implement IExec, default sync, include sending daily danmu
 type Danmaku struct {
 	SyncAction
 }
@@ -163,7 +163,7 @@ func (Danmaku) Finish(user User, medal []dto.MedalInfo) {
 	}
 }
 
-// WatchLive implement IExec, include sending heartbeat
+// WatchLive implement IExec, default async, include sending heartbeat
 type WatchLive struct {
 	AsyncAction
 }

@@ -5,11 +5,15 @@ import (
 	"MedalHelper/manager"
 	"MedalHelper/service/push"
 	"MedalHelper/util"
+	"context"
+	"errors"
 	"fmt"
 	"sync"
+	"time"
 
 	"github.com/TwiN/go-color"
 	"github.com/google/uuid"
+	"github.com/sethvargo/go-retry"
 	"github.com/tidwall/gjson"
 )
 
@@ -36,6 +40,9 @@ type User struct {
 	medalsLow []dto.MedalInfo
 	// 今日亲密度没满的勋章
 	remainMedals []dto.MedalInfo
+
+	// 日志信息
+	message string
 }
 
 func NewUser(accessKey, pushName string, uids []int) User {
@@ -44,6 +51,7 @@ func NewUser(accessKey, pushName string, uids []int) User {
 		bannedUIDs: uids,
 		pushName:   pushName,
 		uuid:       []string{uuid.NewString(), uuid.NewString()},
+		message:    "",
 	}
 }
 
@@ -113,7 +121,7 @@ func (user *User) setMedals() {
 	}
 }
 
-func (user *User) checkMedals() {
+func (user *User) checkMedals() bool {
 	user.setMedals()
 	medalList1 := make([]string, 0, len(user.medalsLow))
 	medalList2 := make([]string, 0)
@@ -130,7 +138,7 @@ func (user *User) checkMedals() {
 			medalList4 = append(medalList4, medal.AnchorInfo.NickName)
 		}
 	}
-	result := fmt.Sprintf(
+	user.message = fmt.Sprintf(
 		"20级以下牌子共 %d 个\n【1300及以上】 %v等 %d个\n【1200至1300】 %v等 %d个\n【1100至1200】 %v等 %d个\n【1100以下】 %v等 %d个\n",
 		len(user.medalsLow),
 		medalList1, len(medalList1),
@@ -138,12 +146,16 @@ func (user *User) checkMedals() {
 		medalList3, len(medalList3),
 		medalList4, len(medalList4),
 	)
-	user.info(result)
+	user.info(user.message)
+	return len(medalList1) == len(user.medalsLow)
+}
+
+func (user *User) report() {
 	if len(user.pushName) != 0 {
 		pushEnd := push.NewPush(user.pushName)
 		pushEnd.Submit(push.Data{
 			Title:   "# 今日亲密度获取情况如下",
-			Content: fmt.Sprintf("用户%s，%s", user.Name, result),
+			Content: fmt.Sprintf("用户%s，%s", user.Name, user.message),
 		})
 	}
 }
@@ -159,27 +171,39 @@ func (user *User) Init() bool {
 	}
 }
 
+func (user *User) RunOnce() bool {
+	switch util.GlobalConfig.CD.Async {
+	case 0: // Sync
+		task := NewTask(*user, []IAction{
+			&Like{},
+			&Share{},
+			&Danmaku{},
+			&WatchLive{},
+		})
+		task.Start()
+	case 1: // Async
+		task := NewTask(*user, []IAction{
+			&ALike{},
+			&AShare{},
+			&Danmaku{},
+			&WatchLive{},
+		})
+		task.Start()
+	}
+	return user.checkMedals()
+}
+
 func (user *User) Start(wg *sync.WaitGroup) {
 	if user.isLogin {
-		switch util.GlobalConfig.CD.Async {
-		case 1: // Async
-			task := NewTask(*user, []IAction{
-				&ALike{},
-				&AShare{},
-				&Danmaku{},
-				&WatchLive{},
-			})
-			task.Start()
-		case 0: // Sync
-			task := NewTask(*user, []IAction{
-				&Like{},
-				&Share{},
-				&Danmaku{},
-				&WatchLive{},
-			})
-			task.Start()
-		}
-		user.checkMedals()
+		backOff := retry.NewConstant(5 * time.Second)
+		backOff = retry.WithMaxRetries(3, backOff)
+		retry.Do(context.Background(), backOff, func(ctx context.Context) error {
+			if ok := user.RunOnce(); !ok {
+				return retry.RetryableError(errors.New("task not complete"))
+			}
+			return nil
+		})
+		user.report()
 	} else {
 		util.Error("用户未登录, accessKey: %s", user.accessKey)
 	}

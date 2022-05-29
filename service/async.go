@@ -23,10 +23,9 @@ func (a *SyncAction) Exec(user User, job *sync.WaitGroup, child IExec) []dto.Med
 				fail = append(fail, medal)
 			}
 		} else {
-			backup := retry.NewFibonacci(time.Duration(retryTime) * time.Second)
-			backup = retry.WithMaxRetries(uint64(util.GlobalConfig.CD.MaxTry), backup)
-			ctx := context.Background()
-			err := retry.Do(ctx, backup, func(ctx context.Context) error {
+			backOff := retry.NewFibonacci(time.Duration(retryTime) * time.Second)
+			backOff = retry.WithMaxRetries(uint64(util.GlobalConfig.CD.MaxTry), backOff)
+			err := retry.Do(context.Background(), backOff, func(ctx context.Context) error {
 				if ok := child.Do(user, medal); !ok {
 					return retry.RetryableError(errors.New("action fail"))
 				}
@@ -62,11 +61,10 @@ func (a *AsyncAction) Exec(user User, job *sync.WaitGroup, child IExec) []dto.Me
 				wg.Done()
 			}(medal)
 		} else {
-			backup := retry.NewFibonacci(time.Duration(retryTime) * time.Second)
-			backup = retry.WithMaxRetries(uint64(util.GlobalConfig.CD.MaxTry), backup)
+			backOff := retry.NewFibonacci(time.Duration(retryTime) * time.Second)
+			backOff = retry.WithMaxRetries(uint64(util.GlobalConfig.CD.MaxTry), backOff)
 			go func(medal dto.MedalInfo) {
-				ctx := context.Background()
-				err := retry.Do(ctx, backup, func(ctx context.Context) error {
+				err := retry.Do(context.Background(), backOff, func(ctx context.Context) error {
 					if ok := child.Do(user, medal); !ok {
 						return retry.RetryableError(errors.New("action fail"))
 					}
