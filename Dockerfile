@@ -5,7 +5,7 @@ ARG GOPROXY=https://goproxy.cn,direct
 RUN cd /app && \
     go build -o /medalhelper /app
 
-FROM scratch
+FROM gcr.io/distroless/static
 COPY --from=builder /medalhelper /medalhelper
 WORKDIR /config
 ENTRYPOINT ["/medalhelper"]
