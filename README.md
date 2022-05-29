@@ -50,12 +50,17 @@ docker run --rm -ti medalhelper login
 
 > 填写配置文件 users.yaml
 
-参考下文编辑 `users.yaml`。
+参考下文编辑 `users.yaml`。注意 `CRON` 中填写的时间，时区需要使用环境变量 `TZ` 指定。
 
 > 运行
 
 ```shell
-docker run -d -v $(pwd)/users.yaml:/config/users.yaml --restart unless-stopped --name medalhelper medalhelper
+docker run -d \
+    -e TZ=Asia/Shanghai
+    -v $(pwd)/users.yaml:/config/users.yaml \
+    --restart unless-stopped \
+    --name medalhelper \
+    medalhelper
 ```
 
 > 查看日志
