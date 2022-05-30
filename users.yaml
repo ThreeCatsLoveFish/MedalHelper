@@ -1,8 +1,10 @@
 USERS:
   - access_key: XXXXXX # 注意冒号后的空格 否则会读取失败 英文冒号
-    banned_uid: 789,100 # 黑名单UID 同上,填了后将不会打卡，点赞，分享 用英文逗号分隔 不填则不限制
+    allowed_uid: #123,666 # 白名单UID,填了后将覆盖配置只打卡，点赞，分享这些用户的勋章 用英文逗号分隔 不填则不限制
+    banned_uid: 789,100 # 黑名单UID,填了后将不会打卡，点赞，分享 用英文逗号分隔 不填则不限制
     push_name: PUSH_DEER_SAMPLE # 推送服务，留空表示不需要推送
   - access_key:
+    allowed_uid:
     banned_uid:
     push_name:
   # 注意对齐

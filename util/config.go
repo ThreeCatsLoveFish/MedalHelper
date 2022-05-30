@@ -32,9 +32,10 @@ type Endpoint struct {
 }
 
 type User struct {
-	BannedUid string `yaml:"banned_uid"`
-	AccessKey string `yaml:"access_key"`
-	PushName  string `yaml:"push_name"`
+	AllowedUid string `yaml:"allowed_uid"`
+	BannedUid  string `yaml:"banned_uid"`
+	AccessKey  string `yaml:"access_key"`
+	PushName   string `yaml:"push_name"`
 }
 
 // InitConfig bind endpoints with config file

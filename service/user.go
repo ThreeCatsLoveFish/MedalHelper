@@ -29,13 +29,13 @@ type User struct {
 
 	// 登录凭证
 	accessKey string
+	// 白名单的房间ID
+	allowedUIDs []int
 	// 被禁止的房间ID
 	bannedUIDs []int
 	// 推送服务
 	pushName string
 
-	// 用户所有勋章
-	medals []dto.MedalInfo
 	// 用户等级小于20的勋章
 	medalsLow []dto.MedalInfo
 	// 今日亲密度没满的勋章
@@ -45,13 +45,14 @@ type User struct {
 	message string
 }
 
-func NewUser(accessKey, pushName string, uids []int) User {
+func NewUser(accessKey, pushName string, allowUIDs, banUIDs []int) User {
 	return User{
-		accessKey:  accessKey,
-		bannedUIDs: uids,
-		pushName:   pushName,
-		uuid:       []string{uuid.NewString(), uuid.NewString()},
-		message:    "",
+		accessKey:   accessKey,
+		allowedUIDs: allowUIDs,
+		bannedUIDs:  banUIDs,
+		pushName:    pushName,
+		uuid:        []string{uuid.NewString(), uuid.NewString()},
+		message:     "",
 	}
 }
 
@@ -100,18 +101,30 @@ func (user *User) signIn() error {
 
 func (user *User) setMedals() {
 	// Clean medals storage
-	user.medals = make([]dto.MedalInfo, 0, 10)
 	user.medalsLow = make([]dto.MedalInfo, 0, 10)
 	user.remainMedals = make([]dto.MedalInfo, 0, 10)
 	// Fetch and update medals
-	for _, medal := range manager.GetFansMedalAndRoomID(user.accessKey) {
+	medals := manager.GetFansMedalAndRoomID(user.accessKey)
+	// Whitelist
+	if len(user.allowedUIDs) > 0 {
+		for _, medal := range medals {
+			if util.IntContain(user.allowedUIDs, medal.Medal.TargetID) != -1 {
+				user.medalsLow = append(user.medalsLow, medal)
+				if medal.Medal.TodayFeed < 1300 {
+					user.remainMedals = append(user.remainMedals, medal)
+				}
+			}
+		}
+		return
+	}
+	// Default blacklist
+	for _, medal := range medals {
 		if util.IntContain(user.bannedUIDs, medal.Medal.TargetID) != -1 {
 			continue
 		}
 		if medal.RoomInfo.RoomID == 0 {
 			continue
 		}
-		user.medals = append(user.medals, medal)
 		if medal.Medal.Level <= 20 {
 			user.medalsLow = append(user.medalsLow, medal)
 			if medal.Medal.TodayFeed < 1300 {
