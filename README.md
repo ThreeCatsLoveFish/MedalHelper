@@ -43,7 +43,7 @@ docker build -t medalhelper .
 > 获取 B 站账号的 access_key
 
 ```shell
-docker run --rm -ti medalhelper login
+docker run --rm -ti -v $(pwd)/users.yaml:/config/users.yaml medalhelper login
 ```
 
 按提示回车并扫码（或访问 URL），得到 `access_key`。
