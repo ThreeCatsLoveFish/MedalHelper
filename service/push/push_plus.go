@@ -26,7 +26,3 @@ func (push PushPlusPush) Submit(pd Data) error {
 	_, err := manager.Get(push.URL, data)
 	return err
 }
-
-func (push PushPlusPush) Info() util.Endpoint {
-	return push.Endpoint
-}

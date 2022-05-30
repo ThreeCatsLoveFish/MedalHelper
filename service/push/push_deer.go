@@ -25,7 +25,3 @@ func (push PushDeerPush) Submit(pd Data) error {
 	_, err := manager.Post(push.URL, data)
 	return err
 }
-
-func (push PushDeerPush) Info() util.Endpoint {
-	return push.Endpoint
-}

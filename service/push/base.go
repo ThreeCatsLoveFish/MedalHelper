@@ -17,6 +17,8 @@ func SetEndpoint(endpoint util.Endpoint) {
 		addPush(endpoint.Name, PushDeerPush{endpoint})
 	case PushPlusName:
 		addPush(endpoint.Name, PushPlusPush{endpoint})
+	case TelegramName:
+		addPush(endpoint.Name, TelegramPush{endpoint})
 	}
 }
 
@@ -28,7 +30,6 @@ type Data struct {
 
 // Push contain all info needed for push action
 type Push interface {
-	Info() util.Endpoint
 	Submit(data Data) error
 }
 

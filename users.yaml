@@ -48,5 +48,9 @@ PUSH:
     token: "<YOUR-TOKEN-HERE>"
     type: "push_plus"
     url: "http://www.pushplus.plus/send"
-# 推送服务，每日打卡成功或报错日志推送
-# 目前仅支持PushDeer和PushPlus
+  - name: "TELEGRAM_SAMPLE"
+    token: "<YOUR-TELEGRAM-CHATID>"
+    type: "telegram"
+    url: "https://api.telegram.org/bot<YOUR-BOT-TOKEN-HERE>/sendMessage"
+  # 推送服务，每日打卡成功或报错日志推送
+  # 目前支持PushDeer, PushPlus, Telegram
