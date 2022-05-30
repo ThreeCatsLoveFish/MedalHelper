@@ -46,7 +46,23 @@ func initUsers() []service.User {
 				banId = append(banId, int(id))
 			}
 		}
-		users = append(users, service.NewUser(userInfo.AccessKey, userInfo.PushName, banId))
+		allowId := make([]int, 0)
+		if userInfo.AllowedUid != "" {
+			allowIdStr := strings.Split(userInfo.AllowedUid, ",")
+			for _, str := range allowIdStr {
+				id, err := strconv.ParseInt(str, 10, 64)
+				if err != nil {
+					continue
+				}
+				allowId = append(allowId, int(id))
+			}
+		}
+		users = append(users, service.NewUser(
+			userInfo.AccessKey,
+			userInfo.PushName,
+			allowId,
+			banId,
+		))
 	}
 	return users
 }
