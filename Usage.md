@@ -127,8 +127,12 @@ PUSH:
     token: "<YOUR-TOKEN-HERE>" 
     type: "push_deer" # 推送服务类型为 PushDeer
     url: "http://<pushdeer-url-or-ip>/message/push" 
-# 推送服务，每日打卡成功或报错日志推送
-# 目前仅支持PushDeer和PushPlus
+  - name: "TELEGRAM_SAMPLE"
+    token: "<YOUR-TELEGRAM-CHATID>"
+    type: "telegram"
+    url: "https://api.telegram.org/bot<YOUR-BOT-TOKEN-HERE>/sendMessage"
+  # 推送服务，每日打卡成功或报错日志推送
+  # 目前支持PushDeer, PushPlus, Telegram
 ```
 
 请务必严格填写，否则程序将读取失败，可以在这里 [YAML、YML 在线编辑器(格式化校验)-BeJSON.com](https://www.bejson.com/validators/yaml_editor/) 验证你填的 yaml 是否正确
