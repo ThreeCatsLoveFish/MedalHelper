@@ -133,6 +133,29 @@ func WearMedal(accessKey string, medalId int) bool {
 	return resp.Code == 0
 }
 
+func TakeoffMedal(accessKey string) bool {
+	rawUrl := "https://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/take_off"
+	data := map[string]string{
+		"access_key": accessKey,
+		"actionKey":  "appkey",
+		"appkey":     util.AppKey,
+		"ts":         util.GetTimestamp(),
+		"platform":   "android",
+		"type":       "1",
+		"version":    "0",
+	}
+	util.Signature(&data)
+	body, err := Post(rawUrl, util.Map2Params(data))
+	if err != nil {
+		util.Error("TakeoffMedal error: %v, data: %v", err, data)
+	}
+	var resp dto.BiliBaseResp
+	if err = json.Unmarshal(body, &resp); err != nil {
+		util.Error("Unmarshal BiliBaseResp error: %v, raw data: %v", err, body)
+	}
+	return resp.Code == 0
+}
+
 func LikeInteract(accessKey string, roomId int) bool {
 	rawUrl := "http://api.live.bilibili.com/xlive/web-ucenter/v1/interact/likeInteract"
 	data := map[string]string{

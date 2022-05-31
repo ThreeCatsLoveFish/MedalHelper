@@ -53,7 +53,7 @@ func NewUser(accessKey, pushName string, allowUIDs, banUIDs []int) User {
 		allowedUIDs: allowUIDs,
 		bannedUIDs:  banUIDs,
 		pushName:    pushName,
-		wearMedal:   dto.MedalInfo{},
+		wearMedal:   dto.DefaultMedal,
 		uuid:        []string{uuid.NewString(), uuid.NewString()},
 		message:     "",
 	}

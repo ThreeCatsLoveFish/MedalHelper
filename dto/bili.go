@@ -55,6 +55,8 @@ type MedalInfo struct {
 	} `json:"room_info"`
 }
 
+var DefaultMedal MedalInfo
+
 // BiliMedalResp obtain the response with all medal info
 type BiliMedalResp struct {
 	BiliBaseResp

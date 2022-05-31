@@ -163,8 +163,13 @@ func (Danmaku) Finish(user User, medal []dto.MedalInfo) {
 	} else {
 		user.info("弹幕打卡未完成,剩余(%d/%d)", len(medal), len(user.medalsLow))
 	}
-	manager.WearMedal(user.accessKey, user.wearMedal.Medal.MedalID)
-	user.info("重新佩戴勋章 %s", user.wearMedal.Medal.MedalName)
+	if user.wearMedal == dto.DefaultMedal {
+		manager.TakeoffMedal(user.accessKey)
+		user.info("脱下勋章恢复原样")
+	} else {
+		manager.WearMedal(user.accessKey, user.wearMedal.Medal.MedalID)
+		user.info("重新佩戴勋章 %s", user.wearMedal.Medal.MedalName)
+	}
 }
 
 // WatchLive implement IExec, default async, include sending heartbeat
