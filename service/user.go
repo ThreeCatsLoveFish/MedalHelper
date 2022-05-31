@@ -36,6 +36,8 @@ type User struct {
 	// 推送服务
 	pushName string
 
+	// 用户佩戴的勋章
+	wearMedal dto.MedalInfo
 	// 用户等级小于20的勋章
 	medalsLow []dto.MedalInfo
 	// 今日亲密度没满的勋章
@@ -51,6 +53,7 @@ func NewUser(accessKey, pushName string, allowUIDs, banUIDs []int) User {
 		allowedUIDs: allowUIDs,
 		bannedUIDs:  banUIDs,
 		pushName:    pushName,
+		wearMedal:   dto.MedalInfo{},
 		uuid:        []string{uuid.NewString(), uuid.NewString()},
 		message:     "",
 	}
@@ -104,7 +107,10 @@ func (user *User) setMedals() {
 	user.medalsLow = make([]dto.MedalInfo, 0, 10)
 	user.remainMedals = make([]dto.MedalInfo, 0, 10)
 	// Fetch and update medals
-	medals := manager.GetFansMedalAndRoomID(user.accessKey)
+	medals, wearMedal := manager.GetMedal(user.accessKey)
+	if wearMedal {
+		user.wearMedal = medals[0]
+	}
 	// Whitelist
 	if len(user.allowedUIDs) > 0 {
 		for _, medal := range medals {
