@@ -142,11 +142,13 @@ func (Danmaku) Do(user User, medal dto.MedalInfo) bool {
 	if util.GlobalConfig.CD.Danmu == 0 {
 		return true
 	}
+	if ok := manager.WearMedal(user.accessKey, medal.Medal.MedalID); !ok {
+		return false
+	}
 	if ok := manager.SendDanmaku(user.accessKey, medal.RoomInfo.RoomID); !ok {
 		return false
 	}
-	timer := time.NewTimer(time.Duration(util.GlobalConfig.CD.Danmu) * time.Second)
-	<-timer.C
+	time.Sleep(time.Duration(util.GlobalConfig.CD.Danmu) * time.Second)
 	user.info("%s 房间弹幕打卡完成", medal.AnchorInfo.NickName)
 	return true
 }
@@ -161,6 +163,8 @@ func (Danmaku) Finish(user User, medal []dto.MedalInfo) {
 	} else {
 		user.info("弹幕打卡未完成,剩余(%d/%d)", len(medal), len(user.medalsLow))
 	}
+	manager.WearMedal(user.accessKey, user.wearMedal.Medal.MedalID)
+	user.info("重新佩戴勋章 %s", user.wearMedal.Medal.MedalName)
 }
 
 // WatchLive implement IExec, default async, include sending heartbeat
@@ -180,8 +184,7 @@ func (WatchLive) Do(user User, medal dto.MedalInfo) bool {
 			return false
 		}
 		user.info("%s 房间心跳包已发送(%d/%d)", medal.AnchorInfo.NickName, i + 1, times)
-		timer := time.NewTimer(1 * time.Minute)
-		<-timer.C
+		time.Sleep(1 * time.Minute)
 	}
 	return true
 }

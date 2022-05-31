@@ -71,8 +71,9 @@ func GetUserInfo(accessKey string) (dto.BiliLiveUserInfo, error) {
 	return resp, nil
 }
 
-func GetFansMedalAndRoomID(accessKey string) []dto.MedalInfo {
+func GetMedal(accessKey string) ([]dto.MedalInfo, bool) {
 	medals := make([]dto.MedalInfo, 0, 20)
+	wear := false
 	page := 1
 	for {
 		rawUrl := "http://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/panel"
@@ -88,12 +89,15 @@ func GetFansMedalAndRoomID(accessKey string) []dto.MedalInfo {
 		body, err := Get(rawUrl, util.Map2Params(data))
 		if err != nil {
 			util.Error("GetFansMedalAndRoomID error: %v, data: %v", err, data)
-			return medals
+			return medals, wear
 		}
 		var resp dto.BiliMedalResp
 		if err = json.Unmarshal(body, &resp); err != nil {
 			util.Error("Unmarshal BiliMedalResp error: %v, raw data: %v", err, body)
-			return medals
+			return medals, wear
+		}
+		if len(resp.Data.SpecialList) > 0 {
+			wear = true
 		}
 		medals = append(medals, resp.Data.SpecialList...)
 		medals = append(medals, resp.Data.List...)
@@ -102,7 +106,31 @@ func GetFansMedalAndRoomID(accessKey string) []dto.MedalInfo {
 		}
 		page++
 	}
-	return medals
+	return medals, wear
+}
+
+func WearMedal(accessKey string, medalId int) bool {
+	rawUrl := "https://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/wear"
+	data := map[string]string{
+		"access_key": accessKey,
+		"actionKey":  "appkey",
+		"appkey":     util.AppKey,
+		"ts":         util.GetTimestamp(),
+		"medal_id":   fmt.Sprint(medalId),
+		"platform":   "android",
+		"type":       "1",
+		"version":    "0",
+	}
+	util.Signature(&data)
+	body, err := Post(rawUrl, util.Map2Params(data))
+	if err != nil {
+		util.Error("WearMedal error: %v, data: %v", err, data)
+	}
+	var resp dto.BiliBaseResp
+	if err = json.Unmarshal(body, &resp); err != nil {
+		util.Error("Unmarshal BiliBaseResp error: %v, raw data: %v", err, body)
+	}
+	return resp.Code == 0
 }
 
 func LikeInteract(accessKey string, roomId int) bool {
