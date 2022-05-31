@@ -71,12 +71,12 @@ func exec() {
 	users := initUsers()
 	wg := sync.WaitGroup{}
 	for _, user := range users {
-		go func(user service.User) {
+		wg.Add(1)
+		go func(user service.User, wg *sync.WaitGroup) {
 			if status := user.Init(); status {
-				wg.Add(1)
-				user.Start(&wg)
+				user.Start(wg)
 			}
-		}(user)
+		}(user, &wg)
 	}
 	wg.Wait()
 	util.Info(" 今日任务已完成")
