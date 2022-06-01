@@ -83,7 +83,7 @@ func GetMedal(accessKey string) ([]dto.MedalInfo, bool) {
 			"appkey":     util.AppKey,
 			"ts":         util.GetTimestamp(),
 			"page":       fmt.Sprint(page),
-			"page_size":  "100",
+			"page_size":  "50",
 		}
 		util.Signature(&data)
 		body, err := Get(rawUrl, util.Map2Params(data))
