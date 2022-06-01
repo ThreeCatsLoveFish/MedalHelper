@@ -128,9 +128,6 @@ func (user *User) setMedals() {
 		if util.IntContain(user.bannedUIDs, medal.Medal.TargetID) != -1 {
 			continue
 		}
-		if medal.RoomInfo.RoomID == 0 {
-			continue
-		}
 		if medal.Medal.Level <= 20 {
 			user.medalsLow = append(user.medalsLow, medal)
 			if medal.Medal.TodayFeed < 1300 {
