@@ -11,7 +11,7 @@ import (
 )
 
 func LoginVerify(accessKey string) (dto.BiliAccountResp, error) {
-	rawUrl := "http://app.bilibili.com/x/v2/account/mine"
+	rawUrl := "https://app.bilibili.com/x/v2/account/mine"
 	data := map[string]string{
 		"access_key": accessKey,
 		"actionKey":  "appkey",
@@ -33,7 +33,7 @@ func LoginVerify(accessKey string) (dto.BiliAccountResp, error) {
 }
 
 func SignIn(accessKey string) (string, error) {
-	rawUrl := "http://api.live.bilibili.com/rc/v1/Sign/doSign"
+	rawUrl := "https://api.live.bilibili.com/rc/v1/Sign/doSign"
 	data := map[string]string{
 		"access_key": accessKey,
 		"actionKey":  "appkey",
@@ -50,7 +50,7 @@ func SignIn(accessKey string) (string, error) {
 }
 
 func GetUserInfo(accessKey string) (dto.BiliLiveUserInfo, error) {
-	rawUrl := "http://api.live.bilibili.com/xlive/app-ucenter/v1/user/get_user_info"
+	rawUrl := "https://api.live.bilibili.com/xlive/app-ucenter/v1/user/get_user_info"
 	data := map[string]string{
 		"access_key": accessKey,
 		"actionKey":  "appkey",
@@ -76,7 +76,7 @@ func GetMedal(accessKey string) ([]dto.MedalInfo, bool) {
 	wear := false
 	page := 1
 	for {
-		rawUrl := "http://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/panel"
+		rawUrl := "https://api.live.bilibili.com/xlive/app-ucenter/v1/fansMedal/panel"
 		data := map[string]string{
 			"access_key": accessKey,
 			"actionKey":  "appkey",
@@ -157,7 +157,7 @@ func TakeoffMedal(accessKey string) bool {
 }
 
 func LikeInteract(accessKey string, roomId int) bool {
-	rawUrl := "http://api.live.bilibili.com/xlive/web-ucenter/v1/interact/likeInteract"
+	rawUrl := "https://api.live.bilibili.com/xlive/web-ucenter/v1/interact/likeInteract"
 	data := map[string]string{
 		"access_key": accessKey,
 		"actionKey":  "appkey",
@@ -178,7 +178,7 @@ func LikeInteract(accessKey string, roomId int) bool {
 }
 
 func ShareRoom(accessKey string, roomId int) bool {
-	rawUrl := "http://api.live.bilibili.com/xlive/app-room/v1/index/TrigerInteract"
+	rawUrl := "https://api.live.bilibili.com/xlive/app-room/v1/index/TrigerInteract"
 	data := map[string]string{
 		"access_key":    accessKey,
 		"actionKey":     "appkey",
@@ -200,7 +200,7 @@ func ShareRoom(accessKey string, roomId int) bool {
 }
 
 func SendDanmaku(accessKey string, roomId int) bool {
-	rawUrl := "http://api.live.bilibili.com/xlive/app-room/v1/dM/sendmsg"
+	rawUrl := "https://api.live.bilibili.com/xlive/app-room/v1/dM/sendmsg"
 	params := map[string]string{
 		"access_key": accessKey,
 		"actionKey":  "appkey",
