@@ -37,6 +37,17 @@ docker run -d \
     medalhelper
 ```
 
+> 无视定时任务立刻运行一次
+
+```shell
+docker run -d \
+    -e TZ=Asia/Shanghai \
+    -v $(pwd)/users.yaml:/config/users.yaml \
+    --restart unless-stopped \
+    --name medalhelper \
+    medalhelper start
+```
+
 > 查看日志
 
 ```shell
@@ -72,6 +83,12 @@ vim users.yaml
 
 ```shell
 go run main.go
+```
+
+> 无视定时任务立刻运行一次
+
+```shell
+go run main.go start
 ```
 
 ### 配置文件
