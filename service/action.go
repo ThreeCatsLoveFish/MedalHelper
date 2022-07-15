@@ -178,7 +178,7 @@ type WatchLive struct {
 }
 
 func (WatchLive) Do(user User, medal dto.MedalInfo) bool {
-	times := 31
+	times := 80
 	for i := 0; i < times; i++ {
 		if ok := manager.Heartbeat(
 			user.accessKey,

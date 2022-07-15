@@ -142,31 +142,22 @@ func (user *User) setMedals() {
 
 func (user *User) checkMedals() bool {
 	user.setMedals()
-	medalList1 := make([]string, 0, len(user.medalsLow))
-	medalList2 := make([]string, 0)
-	medalList3 := make([]string, 0)
-	medalList4 := make([]string, 0)
+	fullMedalList := make([]string, 0, len(user.medalsLow))
+	failMedalList := make([]string, 0)
 	for _, medal := range user.medalsLow {
-		if medal.Medal.TodayFeed >= 1300 {
-			medalList1 = append(medalList1, medal.AnchorInfo.NickName)
-		} else if medal.Medal.TodayFeed >= 1200 {
-			medalList2 = append(medalList2, medal.AnchorInfo.NickName)
-		} else if medal.Medal.TodayFeed >= 1100 {
-			medalList3 = append(medalList3, medal.AnchorInfo.NickName)
-		} else if medal.Medal.TodayFeed >= 1000 {
-			medalList4 = append(medalList4, medal.AnchorInfo.NickName)
+		if medal.Medal.TodayFeed == 1500 {
+			fullMedalList = append(fullMedalList, medal.AnchorInfo.NickName)
+		} else {
+			failMedalList = append(failMedalList, medal.AnchorInfo.NickName)
 		}
 	}
 	user.message = fmt.Sprintf(
-		"20级以下牌子共 %d 个\n【1300及以上】 %v等 %d个\n【1200至1300】 %v等 %d个\n【1100至1200】 %v等 %d个\n【1100以下】 %v等 %d个\n",
-		len(user.medalsLow),
-		medalList1, len(medalList1),
-		medalList2, len(medalList2),
-		medalList3, len(medalList3),
-		medalList4, len(medalList4),
+		"20级以下牌子共 %d 个\n【1500】%d个\n【1500以下】 %v等 %d个\n",
+		len(user.medalsLow), len(fullMedalList),
+		failMedalList, len(failMedalList),
 	)
 	user.info(user.message)
-	return len(medalList1) == len(user.medalsLow)
+	return len(fullMedalList) == len(user.medalsLow)
 }
 
 func (user *User) report() {
@@ -195,7 +186,6 @@ func (user *User) RunOnce() bool {
 	case 0: // Sync
 		task := NewTask(*user, []IAction{
 			&Like{},
-			&Share{},
 			&Danmaku{},
 			&WatchLive{},
 		})
@@ -203,7 +193,6 @@ func (user *User) RunOnce() bool {
 	case 1: // Async
 		task := NewTask(*user, []IAction{
 			&ALike{},
-			&AShare{},
 			&Danmaku{},
 			&WatchLive{},
 		})
