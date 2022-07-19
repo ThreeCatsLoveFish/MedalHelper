@@ -28,6 +28,7 @@
 [![wakatime](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper.svg)](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper)
 
 具体使用方法请看[使用文档](Usage.md)
+add a pull request
 
 ### 友情链接
 
