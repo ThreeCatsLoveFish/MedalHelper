@@ -1,8 +1,9 @@
 package push
 
 import (
-	"MedalHelper/util"
 	"testing"
+
+	"github.com/ThreeCatsLoveFish/medalhelper/util"
 )
 
 func TestPushDeerPush(t *testing.T) {

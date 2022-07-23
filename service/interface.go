@@ -1,8 +1,9 @@
 package service
 
 import (
-	"MedalHelper/dto"
 	"sync"
+
+	"github.com/ThreeCatsLoveFish/medalhelper/dto"
 )
 
 type IConcurrency interface {

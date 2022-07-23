@@ -1,12 +1,13 @@
 package service
 
 import (
-	"MedalHelper/dto"
-	"MedalHelper/util"
 	"context"
 	"errors"
 	"sync"
 	"time"
+
+	"github.com/ThreeCatsLoveFish/medalhelper/dto"
+	"github.com/ThreeCatsLoveFish/medalhelper/util"
 
 	"github.com/sethvargo/go-retry"
 )

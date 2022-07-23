@@ -1,10 +1,11 @@
 package service
 
 import (
-	"MedalHelper/dto"
-	"MedalHelper/manager"
-	"MedalHelper/util"
 	"time"
+
+	"github.com/ThreeCatsLoveFish/medalhelper/dto"
+	"github.com/ThreeCatsLoveFish/medalhelper/manager"
+	"github.com/ThreeCatsLoveFish/medalhelper/util"
 )
 
 // Like implement IExec, sync like 3 times
@@ -16,7 +17,7 @@ func (Like) Do(user User, medal dto.MedalInfo) bool {
 	if util.GlobalConfig.CD.Like == 0 {
 		return true
 	}
-	times := 3
+	times := 1
 	ticker := time.NewTicker(time.Duration(util.GlobalConfig.CD.Like) * time.Second)
 	for i := 0; i < times; i++ {
 		if ok := manager.LikeInteract(user.accessKey, medal.RoomInfo.RoomID); !ok {
@@ -48,7 +49,7 @@ func (ALike) Do(user User, medal dto.MedalInfo) bool {
 	if util.GlobalConfig.CD.Like == 0 {
 		return true
 	}
-	times := 3
+	times := 1
 	for i := 0; i < times; i++ {
 		if ok := manager.LikeInteract(user.accessKey, medal.RoomInfo.RoomID); !ok {
 			return false
@@ -78,7 +79,7 @@ func (Share) Do(user User, medal dto.MedalInfo) bool {
 	if util.GlobalConfig.CD.Share == 0 {
 		return true
 	}
-	times := 5
+	times := 1
 	ticker := time.NewTicker(time.Duration(util.GlobalConfig.CD.Share) * time.Second)
 	for i := 0; i < times; i++ {
 		if ok := manager.ShareRoom(user.accessKey, medal.RoomInfo.RoomID); !ok {
@@ -110,7 +111,7 @@ func (AShare) Do(user User, medal dto.MedalInfo) bool {
 	if util.GlobalConfig.CD.Share == 0 {
 		return true
 	}
-	times := 5
+	times := 1
 	ticker := time.NewTicker(time.Duration(util.GlobalConfig.CD.Share) * time.Second)
 	for i := 0; i < times; i++ {
 		if ok := manager.ShareRoom(user.accessKey, medal.RoomInfo.RoomID); !ok {
@@ -188,7 +189,7 @@ func (WatchLive) Do(user User, medal dto.MedalInfo) bool {
 		); !ok {
 			return false
 		}
-		user.info("%s 房间心跳包已发送(%d/%d)", medal.AnchorInfo.NickName, i + 1, times)
+		user.info("%s 房间心跳包已发送(%d/%d)", medal.AnchorInfo.NickName, i+1, times)
 		time.Sleep(1 * time.Minute)
 	}
 	return true

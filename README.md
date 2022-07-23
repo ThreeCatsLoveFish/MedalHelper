@@ -3,15 +3,14 @@
 </p>
 <div align="center">
   <h1> 最新 B 站粉丝牌助手</h1>
-  <p>当前版本：1.3</p>
+  <p>当前版本：1.4</p>
 </div>
 
 ### 功能说明
 
 - 每日直播区签到
-- 每日观看 30 分钟
-- 每日点赞 3 次直播间 （200\*3 亲密度）
-- 每日分享 5 次直播间 （100\*5 亲密度）
+- 每日观看 80 分钟 （100 亲密度 / 5min）
+- 每日点赞 1 次直播间 （100 亲密度）
 - 每日自定义弹幕打卡 （100 亲密度）
 - 弹幕打卡前自动佩戴勋章
 - 可选需要的打卡类型
@@ -28,7 +27,6 @@
 [![wakatime](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper.svg)](https://wakatime.com/badge/github/ThreeCatsLoveFish/MedalHelper)
 
 具体使用方法请看[使用文档](Usage.md)
-add a pull request
 
 ### 友情链接
 

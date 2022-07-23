@@ -1,9 +1,10 @@
 package push
 
 import (
-	"MedalHelper/manager"
-	"MedalHelper/util"
 	"net/url"
+
+	"github.com/ThreeCatsLoveFish/medalhelper/manager"
+	"github.com/ThreeCatsLoveFish/medalhelper/util"
 )
 
 const PushPlusName string = "push_plus"
