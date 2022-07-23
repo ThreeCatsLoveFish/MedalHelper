@@ -3,7 +3,7 @@
 ### GO项目下游依赖
 
 ```bash
-go get github.com/ThreeCatsLoveFish/MedalHelper
+go get github.com/ThreeCatsLoveFish/medalhelper
 ```
 
 ### Windows 用户
