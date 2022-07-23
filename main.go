@@ -1,15 +1,16 @@
 package main
 
 import (
-	"MedalHelper/service"
-	"MedalHelper/service/push"
-	"MedalHelper/util"
 	"fmt"
 	"os"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/ThreeCatsLoveFish/medalhelper/service"
+	"github.com/ThreeCatsLoveFish/medalhelper/service/push"
+	"github.com/ThreeCatsLoveFish/medalhelper/util"
 
 	"github.com/robfig/cron"
 )
@@ -21,7 +22,7 @@ func init() {
 }
 
 func logo() {
-    fmt.Print(`
+	fmt.Print(`
      __       __                __          __      __    __          __                            
     |  \     /  \              |  \        |  \    |  \  |  \        |  \                           
     | ▓▓\   /  ▓▓ ______   ____| ▓▓ ______ | ▓▓    | ▓▓  | ▓▓ ______ | ▓▓ ______   ______   ______  

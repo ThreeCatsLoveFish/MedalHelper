@@ -52,3 +52,18 @@ func InitConfig() {
 	// Load config file
 	conf.BindStruct("", &GlobalConfig)
 }
+
+// LoadConfig bind endpoints with config file
+func LoadConfig(filePath string) {
+	conf := config.NewWithOptions("push", func(opt *config.Options) {
+		opt.DecoderConfig.TagName = "yaml"
+		opt.ParseEnv = true
+	})
+	conf.AddDriver(yaml.Driver)
+	err := conf.LoadFiles(filePath)
+	if err != nil {
+		panic(err)
+	}
+	// Load config file
+	conf.BindStruct("", &GlobalConfig)
+}

@@ -1,10 +1,11 @@
 package push
 
 import (
-	"MedalHelper/manager"
-	"MedalHelper/util"
 	"fmt"
 	"net/url"
+
+	"github.com/ThreeCatsLoveFish/medalhelper/manager"
+	"github.com/ThreeCatsLoveFish/medalhelper/util"
 )
 
 const TelegramName string = "telegram"

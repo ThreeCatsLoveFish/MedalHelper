@@ -1,8 +1,14 @@
 # 使用说明
 
+### GO项目下游依赖
+
+```bash
+go get github.com/ThreeCatsLoveFish/MedalHelper
+```
+
 ### Windows 用户
 
-> Windows10以上用户请直接前往[免配置高速通道](https://github.com/ThreeCatsLoveFish/MedalHelper/releases/tag/v1.0)
+> Windows10以上用户请直接前往[免配置高速通道](https://github.com/ThreeCatsLoveFish/MedalHelper/releases/tag/v1.4)
 
 ### Docker 用户
 
@@ -135,7 +141,7 @@ CD:
   retry: 1 # 任务失败重试时间，单位秒，设置为0不重试
   max_try: 10 # 任务失败最多重试次数，单位次，设置为0不重试
   like: 2 # 点赞间隔时间，单位秒，设置为0不点赞
-  share: 5 # 分享间隔时间，单位秒，设置为0不分享
+  share: 5 # 【已废弃】分享间隔时间，单位秒，设置为0不分享
   danmu: 6 # 弹幕间隔时间，单位秒，设置为0不发送弹幕，只支持同步
 PUSH:
   - name: "PUSH_PLUS_SAMPLE" # 推送名称，对应上面对应用户的推送，请保证名称唯一

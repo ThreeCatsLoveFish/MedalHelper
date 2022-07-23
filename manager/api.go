@@ -1,13 +1,14 @@
 package manager
 
 import (
-	"MedalHelper/dto"
-	"MedalHelper/util"
 	"encoding/json"
 	"fmt"
 	"math/rand"
 	"strings"
 	"time"
+
+	"github.com/ThreeCatsLoveFish/medalhelper/dto"
+	"github.com/ThreeCatsLoveFish/medalhelper/util"
 )
 
 func LoginVerify(accessKey string) (dto.BiliAccountResp, error) {
