@@ -3,8 +3,8 @@ package push
 import (
 	"net/url"
 
-	"github.com/ThreeCatsLoveFish/medalhelper/manager"
-	"github.com/ThreeCatsLoveFish/medalhelper/util"
+	"medalhelper/manager"
+	"medalhelper/util"
 )
 
 const PushDeerName string = "push_deer"

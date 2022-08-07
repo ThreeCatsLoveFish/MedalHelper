@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ThreeCatsLoveFish/medalhelper/dto"
-	"github.com/ThreeCatsLoveFish/medalhelper/util"
+	"medalhelper/dto"
+	"medalhelper/util"
 
 	"github.com/sethvargo/go-retry"
 )
