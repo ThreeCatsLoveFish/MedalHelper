@@ -1,6 +1,6 @@
 package push
 
-import "github.com/ThreeCatsLoveFish/medalhelper/util"
+import "medalhelper/util"
 
 var pushMap map[string]Push
 

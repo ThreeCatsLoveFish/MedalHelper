@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ThreeCatsLoveFish/medalhelper/service"
-	"github.com/ThreeCatsLoveFish/medalhelper/service/push"
-	"github.com/ThreeCatsLoveFish/medalhelper/util"
+	"medalhelper/service"
+	"medalhelper/service/push"
+	"medalhelper/util"
 
 	"github.com/robfig/cron"
 )

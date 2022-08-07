@@ -7,10 +7,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ThreeCatsLoveFish/medalhelper/dto"
-	"github.com/ThreeCatsLoveFish/medalhelper/manager"
-	"github.com/ThreeCatsLoveFish/medalhelper/service/push"
-	"github.com/ThreeCatsLoveFish/medalhelper/util"
+	"medalhelper/dto"
+	"medalhelper/manager"
+	"medalhelper/service/push"
+	"medalhelper/util"
 
 	"github.com/TwiN/go-color"
 	"github.com/google/uuid"
@@ -161,12 +161,24 @@ func (user *User) checkMedals() bool {
 	return len(fullMedalList) == len(user.medalsLow)
 }
 
+// Send daily report notification
 func (user *User) report() {
 	if len(user.pushName) != 0 {
 		pushEnd := push.NewPush(user.pushName)
 		pushEnd.Submit(push.Data{
 			Title:   "# 今日亲密度获取情况如下",
 			Content: fmt.Sprintf("用户%s，%s", user.Name, user.message),
+		})
+	}
+}
+
+// Send expire notification
+func (user *User) expire() {
+	if len(user.pushName) != 0 {
+		pushEnd := push.NewPush(user.pushName)
+		pushEnd.Submit(push.Data{
+			Title:   "# AccessKey 过期",
+			Content: fmt.Sprintf("用户未登录, accessKey: %s", user.accessKey),
 		})
 	}
 }
@@ -178,6 +190,7 @@ func (user *User) Init() bool {
 		return true
 	} else {
 		util.Error("用户登录失败, accessKey: %s", user.accessKey)
+		user.expire()
 		return false
 	}
 }
