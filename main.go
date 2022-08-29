@@ -18,7 +18,7 @@ import (
 
 var login = flag.Bool("login", false, "登录以获取 accesskey（先执行这个）")
 var configPath = flag.String("config", "./users.yaml", "指定配置文件路径")
-var start_now = flag.Bool("start", false, "无视定时任务立刻运行一次")
+var startNow = flag.Bool("start", false, "无视定时任务立刻运行一次")
 
 func init() {
 	// Init config file
@@ -113,7 +113,7 @@ func main() {
 
 	logo()
 	// Start right now
-	if *start_now {
+	if *startNow {
 		exec()
 	}
 
