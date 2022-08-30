@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"strconv"
@@ -15,9 +16,13 @@ import (
 	"github.com/robfig/cron"
 )
 
+var login = flag.Bool("login", false, "登录以获取 accesskey（先执行这个）")
+var configPath = flag.String("config", "./users.yaml", "指定配置文件路径")
+var startNow = flag.Bool("start", false, "无视定时任务立刻运行一次")
+
 func init() {
 	// Init config file
-	util.InitConfig()
+	util.LoadConfig(*configPath)
 	push.InitPush()
 }
 
@@ -39,13 +44,9 @@ func logo() {
 `)
 }
 
-func usage() {
-	fmt.Print(`Usage: main.go [COMMAND]
-
-COMMAND:
-    login   Login bili account and get access key
-    start   Execute all tasks immediately
-`)
+func Usage() {
+	fmt.Println("Usage of: ", os.Args[0])
+	flag.PrintDefaults()
 }
 
 func initUsers() []service.User {
@@ -102,22 +103,20 @@ func exec() {
 }
 
 func main() {
+	flag.Parse()
+
 	// Tool for login
-	args := os.Args
-	if len(args) > 1 {
-		if args[1] == "login" {
-			logo()
-			util.LoginBili()
-		} else if args[1] == "start" {
-			logo()
-			exec()
-		} else {
-			usage()
-		}
+	if *login {
+		util.LoginBili()
 		return
 	}
 
 	logo()
+	// Start right now
+	if *startNow {
+		exec()
+	}
+
 	// Start main block
 	if len(util.GlobalConfig.Cron) == 0 {
 		util.Info(" 外部调用,开启任务")
