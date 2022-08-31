@@ -20,12 +20,6 @@ var login = flag.Bool("login", false, "登录以获取 accesskey（先执行这�
 var configPath = flag.String("config", "./users.yaml", "指定配置文件路径")
 var startNow = flag.Bool("start", false, "无视定时任务立刻运行一次")
 
-func init() {
-	// Init config file
-	util.LoadConfig(*configPath)
-	push.InitPush()
-}
-
 func logo() {
 	fmt.Print(`
      __       __                __          __      __    __          __                            
@@ -104,7 +98,11 @@ func exec() {
 
 func main() {
 	flag.Parse()
-
+	
+	// Init config file
+	util.LoadConfig(*configPath)
+	push.InitPush()
+	
 	// Tool for login
 	if *login {
 		util.LoginBili()
