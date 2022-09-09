@@ -23,7 +23,7 @@ docker build -t medalhelper .
 > 获取 B 站账号的 access_key
 
 ```shell
-docker run --rm -ti -v $(pwd)/users.yaml:/config/users.yaml medalhelper login
+docker run --rm -ti -v $(pwd)/users.yaml:/config/users.yaml medalhelper -login
 ```
 
 按提示回车并扫码（或访问 URL），得到 `access_key`。
@@ -51,7 +51,7 @@ docker run -d \
     -v $(pwd)/users.yaml:/config/users.yaml \
     --restart unless-stopped \
     --name medalhelper \
-    medalhelper start
+    medalhelper -start
 ```
 
 > 查看日志
@@ -74,7 +74,7 @@ cd MedalHelper
 > 获取 B 站账号的 access_key
 
 ```shell
-go run main.go login
+go run main.go -login
 ```
 扫码登录，会得到 `access_key` 即可
 
@@ -94,7 +94,7 @@ go run main.go
 > 无视定时任务立刻运行一次
 
 ```shell
-go run main.go start
+go run main.go -start
 ```
 
 ### 配置文件
