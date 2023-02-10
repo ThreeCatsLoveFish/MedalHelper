@@ -1,0 +1,30 @@
+name: run MedalHelper
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "05 04,12 * * *"
+
+jobs:
+    MedalHelper:
+        runs-on: ubuntu-latest
+        steps:
+            - run: docker pull ghcr.io/boyanzh/medalhelper:latest
+            - run: touch users.yaml
+            - run: |
+                   echo 'USERS:' >> users.yaml
+                   echo '  - access_key: ${{ secrets.BILI_ACCESS }}' >> users.yaml
+                   echo '    push_name: TELEGRAM' >> users.yaml
+                   echo 'DANMU: ["(⌒▽⌒)."]' >> users.yaml
+                   echo 'CD:' >> users.yaml
+                   echo '  async: 1' >> users.yaml
+                   echo '  retry: 1' >> users.yaml
+                   echo '  max_try: 10' >> users.yaml
+                   echo '  like: 2' >> users.yaml
+                   echo '  danmu: 6' >> users.yaml
+                   echo 'PUSH:' >> users.yaml
+                   echo '  - name: "TELEGRAM"' >> users.yaml
+                   echo '    token: "${{ secrets.TG_USER_ID }}"' >> users.yaml
+                   echo '    type: "telegram"' >> users.yaml
+                   echo '    url: "https://api.telegram.org/bot${{ secrets.TG_BOT_TOKEN }}/sendMessage"' >> users.yaml
+            - run: docker run -i --rm -v $(pwd)/users.yaml:/config/users.yaml ghcr.io/boyanzh/medalhelper -start
