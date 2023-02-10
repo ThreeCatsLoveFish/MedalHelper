@@ -1,9 +1,9 @@
 # 使用说明
 
-### GO项目下游依赖
+### Go 直接安装
 
 ```bash
-go get github.com/BoYanZh/medalhelper
+go install github.com/BoYanZh/medalhelper@latest
 ```
 
 ### Windows 用户
