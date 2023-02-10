@@ -11,7 +11,7 @@ else
 endif
 
 build:
-	go build -o $(TARGET) main.go
+	go build -o $(TARGET) -ldflags '-w -s' main.go
 
 run: build
 	$(TARGET)
