@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/url"
 
-	"medalhelper/manager"
-	"medalhelper/util"
+	"github.com/BoYanZh/medalhelper/manager"
+	"github.com/BoYanZh/medalhelper/util"
 )
 
 const TelegramName string = "telegram"

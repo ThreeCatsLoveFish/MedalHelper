@@ -1,0 +1,64 @@
+---
+
+name: cicd
+
+on:
+    push:
+        branches: [master]
+    pull_request:
+        branches: [master]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set up Golang
+              uses: actions/setup-go@v3
+              with:
+                  go-version: '>=1.20.0'
+            - name: Setup Golang caches
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      ~/.cache/go-build
+                      ~/go/pkg/mod
+                  key: ${{ runner.os }}-golang-${{ hashFiles('**/go.sum') }}
+                  restore-keys: |
+                      ${{ runner.os }}-golang-
+            - run: go version
+            - name: Build
+              run: go build -v ./...
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v2
+            - name: Login to Docker Hub
+              uses: docker/login-action@v2
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Extract metadata (tags, labels) for Docker
+              uses: docker/metadata-action@v4
+              id: meta
+              with:
+                  images: ghcr.io/BoYanZh/MedalHelper
+                  flavor: |
+                      latest=${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+            - name: Set output
+              id: output
+              run: |
+                  TAGS="${{ steps.meta.outputs.tags }}"
+                  echo "$TAGS"
+                  TAG="${TAGS%%$'\n'*}"
+                  echo "$TAG"
+                  echo "{tag}={$TAG}" >> $GITHUB_OUTPUT
+            - name: Build and push Docker image
+              id: docker_build
+              uses: docker/build-push-action@v4
+              with:
+                  context: .
+                  push: true
+                  tags: ${{ steps.meta.outputs.tags }}
+                  labels: ${{ steps.meta.outputs.labels }}
+                  cache-from: type=gha
+                  cache-to: type=gha,mode=max

@@ -9,9 +9,9 @@ import (
 	"sync"
 	"time"
 
-	"medalhelper/service"
-	"medalhelper/service/push"
-	"medalhelper/util"
+	"github.com/BoYanZh/medalhelper/service"
+	"github.com/BoYanZh/medalhelper/service/push"
+	"github.com/BoYanZh/medalhelper/util"
 
 	"github.com/robfig/cron"
 )
@@ -33,7 +33,7 @@ func logo() {
      \▓▓      \▓▓ \▓▓▓▓▓▓▓ \▓▓▓▓▓▓▓ \▓▓▓▓▓▓▓\▓▓     \▓▓   \▓▓ \▓▓▓▓▓▓▓\▓▓ ▓▓▓▓▓▓▓  \▓▓▓▓▓▓▓\▓▓      
                                                                         | ▓▓                        
                                                                         | ▓▓                        
-                                                                         \▓▓                        	
+                                                                         \▓▓                        
 
 `)
 }
@@ -98,11 +98,11 @@ func exec() {
 
 func main() {
 	flag.Parse()
-	
+
 	// Init config file
 	util.LoadConfig(*configPath)
 	push.InitPush()
-	
+
 	// Tool for login
 	if *login {
 		util.LoginBili()
@@ -121,7 +121,10 @@ func main() {
 		exec()
 	} else {
 		c := cron.New()
-		c.AddFunc(util.GlobalConfig.Cron, exec)
+		err := c.AddFunc(util.GlobalConfig.Cron, exec)
+		if err != nil {
+			panic(err)
+		}
 		entry := c.Entries()
 		timeNext := entry[0].Schedule.Next(time.Now()).Format(time.RFC3339)
 		util.Info(" 使用内置定时器,开启定时任务,下次执行时间为%s", timeNext)

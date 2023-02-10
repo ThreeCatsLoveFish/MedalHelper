@@ -66,11 +66,11 @@ func verifyLogin(auth_code string) {
 			fmt.Println("登录成功")
 			fmt.Println("access_key:", string(accessKey))
 			filename := "login_info.txt"
-			err := ioutil.WriteFile(filename, []byte(string(accessKey)), 0644)
+			err := ioutil.WriteFile(filename, []byte(string(accessKey) + "\n"), 0644)
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("access_key已保存在", filename)
+			fmt.Printf("access_key 已保存在 %s\n", filename)
 			break
 		} else {
 			fmt.Println(string(body))

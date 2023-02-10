@@ -39,7 +39,7 @@ func ClientSign(data string) string {
 	h3 := sha512.New384()
 	h4 := sha3.New384()
 	h5, _ := blake2b.New512(nil)
-	
+
 	h1.Write([]byte(data))
 	h2.Write([]byte(hex.EncodeToString(h1.Sum(nil))))
 	h3.Write([]byte(hex.EncodeToString(h2.Sum(nil))))

@@ -50,7 +50,10 @@ func InitConfig() {
 		panic(err)
 	}
 	// Load config file
-	conf.BindStruct("", &GlobalConfig)
+	err = conf.BindStruct("", &GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
 }
 
 // LoadConfig bind endpoints with config file
@@ -65,5 +68,8 @@ func LoadConfig(filePath string) {
 		panic(err)
 	}
 	// Load config file
-	conf.BindStruct("", &GlobalConfig)
+	err = conf.BindStruct("", &GlobalConfig)
+	if err != nil {
+		panic(err)
+	}
 }
