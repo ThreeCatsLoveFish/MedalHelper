@@ -98,11 +98,11 @@ func exec() {
 
 func main() {
 	flag.Parse()
-	
+
 	// Init config file
 	util.LoadConfig(*configPath)
 	push.InitPush()
-	
+
 	// Tool for login
 	if *login {
 		util.LoginBili()
