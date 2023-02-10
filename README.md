@@ -21,7 +21,7 @@
 - 多种推送通知 （PushDeer PushPlus Telegram）
 - 同步异步配置
 
-<small>ps: 新版 B 站粉丝牌的亲密度每一个牌子都将单独计算  </small>
+<small>ps: 新版 B 站粉丝牌的亲密度每一个牌子都将单独计算</small>
 
 ### 使用说明
 
