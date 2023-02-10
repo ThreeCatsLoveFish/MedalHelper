@@ -79,10 +79,10 @@ func (user *User) loginVerify() bool {
 	return true
 }
 
-func (user *User) signIn() error {
+func (user *User) signIn() {
 	signInfo, err := manager.SignIn(user.accessKey)
 	if err != nil {
-		return nil
+		return
 	}
 	resp := gjson.Parse(signInfo)
 	if resp.Get("code").Int() == 0 {
@@ -95,12 +95,11 @@ func (user *User) signIn() error {
 
 	userInfo, err := manager.GetUserInfo(user.accessKey)
 	if err != nil {
-		return nil
+		return
 	}
 	level := userInfo.Data.Exp.UserLevel
 	unext := userInfo.Data.Exp.Unext
 	user.info("当前用户UL等级: %d, 还差 %d 经验升级", level, unext)
-	return nil
 }
 
 func (user *User) setMedals() {
@@ -165,7 +164,7 @@ func (user *User) checkMedals() bool {
 func (user *User) report() {
 	if len(user.pushName) != 0 {
 		pushEnd := push.NewPush(user.pushName)
-		pushEnd.Submit(push.Data{
+		_ = pushEnd.Submit(push.Data{
 			Title:   "# 今日亲密度获取情况如下",
 			Content: fmt.Sprintf("用户%s，%s", user.Name, user.message),
 		})
@@ -176,7 +175,7 @@ func (user *User) report() {
 func (user *User) expire() {
 	if len(user.pushName) != 0 {
 		pushEnd := push.NewPush(user.pushName)
-		pushEnd.Submit(push.Data{
+		_ = pushEnd.Submit(push.Data{
 			Title:   "# AccessKey 过期",
 			Content: fmt.Sprintf("用户未登录, accessKey: %s", user.accessKey),
 		})
@@ -219,7 +218,7 @@ func (user *User) Start(wg *sync.WaitGroup) {
 	if user.isLogin {
 		backOff := retry.NewConstant(5 * time.Second)
 		backOff = retry.WithMaxRetries(3, backOff)
-		retry.Do(context.Background(), backOff, func(ctx context.Context) error {
+		_ = retry.Do(context.Background(), backOff, func(ctx context.Context) error {
 			if ok := user.RunOnce(); !ok {
 				return retry.RetryableError(errors.New("task not complete"))
 			}

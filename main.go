@@ -121,7 +121,10 @@ func main() {
 		exec()
 	} else {
 		c := cron.New()
-		c.AddFunc(util.GlobalConfig.Cron, exec)
+		err := c.AddFunc(util.GlobalConfig.Cron, exec)
+		if err != nil {
+			panic(err)
+		}
 		entry := c.Entries()
 		timeNext := entry[0].Schedule.Next(time.Now()).Format(time.RFC3339)
 		util.Info(" 使用内置定时器,开启定时任务,下次执行时间为%s", timeNext)
