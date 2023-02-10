@@ -9,9 +9,9 @@ import (
 	"sync"
 	"time"
 
-	"medalhelper/service"
-	"medalhelper/service/push"
-	"medalhelper/util"
+	"github.com/BoYanZh/medalhelper/service"
+	"github.com/BoYanZh/medalhelper/service/push"
+	"github.com/BoYanZh/medalhelper/util"
 
 	"github.com/robfig/cron"
 )

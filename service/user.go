@@ -7,10 +7,10 @@ import (
 	"sync"
 	"time"
 
-	"medalhelper/dto"
-	"medalhelper/manager"
-	"medalhelper/service/push"
-	"medalhelper/util"
+	"github.com/BoYanZh/medalhelper/dto"
+	"github.com/BoYanZh/medalhelper/manager"
+	"github.com/BoYanZh/medalhelper/service/push"
+	"github.com/BoYanZh/medalhelper/util"
 
 	"github.com/TwiN/go-color"
 	"github.com/google/uuid"

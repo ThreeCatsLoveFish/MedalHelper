@@ -3,19 +3,19 @@
 ### GO项目下游依赖
 
 ```bash
-go get github.com/ThreeCatsLoveFish/medalhelper
+go get github.com/BoYanZh/medalhelper
 ```
 
 ### Windows 用户
 
-> Windows10以上用户请直接前往[免配置高速通道](https://github.com/ThreeCatsLoveFish/MedalHelper/releases/tag/v1.4)
+> Windows10以上用户请直接前往[免配置高速通道](https://github.com/BoYanZh/MedalHelper/releases/tag/v1.4)
 
 ### Docker 用户
 
 > 克隆本项目，构建镜像
 
 ```shell
-git clone https://github.com/ThreeCatsLoveFish/MedalHelper.git
+git clone https://github.com/BoYanZh/MedalHelper.git
 cd MedalHelper
 docker build -t medalhelper .
 ```
@@ -67,7 +67,7 @@ docker logs medalhelper
 > 克隆本项目 安装依赖
 
 ```shell
-git clone https://github.com/ThreeCatsLoveFish/MedalHelper.git
+git clone https://github.com/BoYanZh/MedalHelper.git
 cd MedalHelper
 ```
 

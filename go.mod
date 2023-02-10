@@ -1,4 +1,4 @@
-module medalhelper
+module github.com/BoYanZh/medalhelper
 
 go 1.16
 

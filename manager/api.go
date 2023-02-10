@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"medalhelper/dto"
-	"medalhelper/util"
+	"github.com/BoYanZh/medalhelper/dto"
+	"github.com/BoYanZh/medalhelper/util"
 )
 
 func LoginVerify(accessKey string) (dto.BiliAccountResp, error) {
