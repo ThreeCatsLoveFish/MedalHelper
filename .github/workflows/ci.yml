@@ -41,7 +41,7 @@ jobs:
               uses: docker/metadata-action@v4
               id: meta
               with:
-                  images: ghcr.io/BoYanZh/MedalHelper
+                  images: ghcr.io/ThreeCatsLoveFish/MedalHelper
                   flavor: |
                       latest=${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
             - name: Set output

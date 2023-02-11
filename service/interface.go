@@ -3,7 +3,7 @@ package service
 import (
 	"sync"
 
-	"github.com/BoYanZh/medalhelper/dto"
+	"github.com/ThreeCatsLoveFish/medalhelper/dto"
 )
 
 type IConcurrency interface {

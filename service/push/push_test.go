@@ -3,7 +3,7 @@ package push
 import (
 	"testing"
 
-	"github.com/BoYanZh/medalhelper/util"
+	"github.com/ThreeCatsLoveFish/medalhelper/util"
 )
 
 func TestPushDeerPush(t *testing.T) {

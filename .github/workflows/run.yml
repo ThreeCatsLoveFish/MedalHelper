@@ -9,7 +9,7 @@ jobs:
     MedalHelper:
         runs-on: ubuntu-latest
         steps:
-            - run: docker pull ghcr.io/boyanzh/medalhelper:latest
+            - run: docker pull ghcr.io/threecatslovefish/medalhelper:latest
             - run: touch users.yaml
             - run: |
                    echo 'USERS:' >> users.yaml
@@ -27,4 +27,4 @@ jobs:
                    echo '    token: "${{ secrets.TG_USER_ID }}"' >> users.yaml
                    echo '    type: "telegram"' >> users.yaml
                    echo '    url: "https://api.telegram.org/bot${{ secrets.TG_BOT_TOKEN }}/sendMessage"' >> users.yaml
-            - run: docker run -i --rm -v $(pwd)/users.yaml:/config/users.yaml ghcr.io/boyanzh/medalhelper -start
+            - run: docker run -i --rm -v $(pwd)/users.yaml:/config/users.yaml ghcr.io/threecatslovefish/medalhelper -start
