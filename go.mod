@@ -1,4 +1,4 @@
-module github.com/BoYanZh/medalhelper
+module github.com/ThreeCatsLoveFish/medalhelper
 
 go 1.16
 
