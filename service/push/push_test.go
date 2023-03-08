@@ -56,3 +56,20 @@ func TestTelegramPush(t *testing.T) {
 		t.Fatalf("Push error: %v", err)
 	}
 }
+
+func TestBarkPush(t *testing.T) {
+	push := BarkPush{
+		util.Endpoint{
+			Name:  "push",
+			Type:  "bark",
+			URL:   "https://<pushdeer-url-or-ip>/push",
+			Token: "<YOUR-TOKEN>",
+		},
+	}
+	if err := push.Submit(Data{
+		Title:   "test",
+		Content: "Oh my sky!",
+	}); err != nil {
+		t.Fatalf("Push error: %v", err)
+	}
+}
