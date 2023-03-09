@@ -18,7 +18,7 @@
 - 可选需要的打卡类型
 - 本日亲密度已满徽章不重复打卡
 - 多账号支持
-- 多种推送通知 （PushDeer PushPlus Telegram）
+- 多种推送通知 （PushDeer PushPlus Telegram Bark）
 - 同步异步配置
 
 <small>ps: 新版 B 站粉丝牌的亲密度每一个牌子都将单独计算</small>

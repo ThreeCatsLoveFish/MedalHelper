@@ -54,5 +54,9 @@ PUSH:
     token: "<YOUR-TELEGRAM-CHATID>"
     type: "telegram"
     url: "https://api.telegram.org/bot<YOUR-BOT-TOKEN-HERE>/sendMessage"
+  - name: "BARK"
+    token: "<YOUR-TOKEN-HERE>"
+    type: "bark"
+    url: "http://<bark-url-or-ip>/push"
   # 推送服务，每日打卡成功或报错日志推送
-  # 目前支持PushDeer, PushPlus, Telegram
+  # 目前支持PushDeer, PushPlus, Telegram, Bark

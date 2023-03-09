@@ -19,6 +19,8 @@ func SetEndpoint(endpoint util.Endpoint) {
 		addPush(endpoint.Name, PushPlusPush{endpoint})
 	case TelegramName:
 		addPush(endpoint.Name, TelegramPush{endpoint})
+	case BarkName:
+		addPush(endpoint.Name, BarkPush{endpoint})
 	}
 }
 
