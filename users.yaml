@@ -57,6 +57,6 @@ PUSH:
   - name: "BARK"
     token: "<YOUR-TOKEN-HERE>"
     type: "bark"
-    url: "http://<pushdeer-url-or-ip>/push"
+    url: "http://<bark-url-or-ip>/push"
   # 推送服务，每日打卡成功或报错日志推送
   # 目前支持PushDeer, PushPlus, Telegram, Bark

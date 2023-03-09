@@ -62,13 +62,13 @@ func TestBarkPush(t *testing.T) {
 		util.Endpoint{
 			Name:  "push",
 			Type:  "bark",
-			URL:   "https://<pushdeer-url-or-ip>/push",
+			URL:   "https://<bark-url-or-ip>/push",
 			Token: "<YOUR-TOKEN>",
 		},
 	}
 	if err := push.Submit(Data{
 		Title:   "test",
-		Content: "Oh my sky!",
+		Content: "Good Morning!",
 	}); err != nil {
 		t.Fatalf("Push error: %v", err)
 	}
