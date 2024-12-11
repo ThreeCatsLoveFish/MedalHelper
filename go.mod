@@ -12,5 +12,5 @@ require (
 	github.com/sethvargo/go-retry v0.2.3
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e // indirect
 	github.com/tidwall/gjson v1.14.2
-	golang.org/x/crypto v0.17.0
+	golang.org/x/crypto v0.31.0
 )
